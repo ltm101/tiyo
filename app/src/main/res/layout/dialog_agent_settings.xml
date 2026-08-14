@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true"
+    android:overScrollMode="never">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/tiyo_surface"
+        android:orientation="vertical"
+        android:paddingStart="22dp"
+        android:paddingTop="22dp"
+        android:paddingEnd="22dp"
+        android:paddingBottom="18dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:contentDescription="Tiyo"
+                android:scaleType="centerCrop"
+                android:src="@drawable/tiyo_app_icon" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Tiyo Agent"
+                    android:textColor="@color/tiyo_ink"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="sans-serif"
+                    android:text="模型由 Tiyo 本机安全连接，密钥不会写进配置文件"
+                    android:textColor="@color/tiyo_muted"
+                    android:textSize="11sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            style="@style/Tiyo.FieldLabel"
+            android:layout_marginTop="20dp"
+            android:text="已保存 Provider（点按切换）" />
+
+        <LinearLayout
+            android:id="@+id/agent_provider_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+        <TextView
+            style="@style/Tiyo.FieldLabel"
+            android:layout_marginTop="6dp"
+            android:text="Provider 名称（保存时用，可另存为新 Provider）" />
+
+        <EditText
+            android:id="@+id/agent_provider_id"
+            style="@style/Tiyo.AgentField"
+            android:hint="tiyo"
+            android:inputType="text" />
+
+        <TextView
+            style="@style/Tiyo.FieldLabel"
+            android:layout_marginTop="13dp"
+            android:text="API 地址" />
+
+        <EditText
+            android:id="@+id/agent_base_url"
+            style="@style/Tiyo.AgentField"
+            android:hint="https://api.deepseek.com/v1"
+            android:inputType="textUri" />
+
+        <TextView
+            style="@style/Tiyo.FieldLabel"
+            android:layout_marginTop="13dp"
+            android:text="模型" />
+
+        <EditText
+            android:id="@+id/agent_model"
+            style="@style/Tiyo.AgentField"
+            android:hint="deepseek-v4-flash"
+            android:inputType="text" />
+
+        <TextView
+            android:id="@+id/agent_vision_preset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/btn_secondary_bg"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="7dp"
+            android:text="👁 一键填识图模型：Agnes 2.0-flash（免费）"
+            android:textColor="@color/tiyo_accent"
+            android:textSize="12sp" />
+
+        <TextView
+            style="@style/Tiyo.FieldLabel"
+            android:layout_marginTop="13dp"
+            android:text="API Key" />
+
+        <EditText
+            android:id="@+id/agent_api_key"
+            style="@style/Tiyo.AgentField"
+            android:hint="留空则保留已加密保存的 Key"
+            android:inputType="textPassword" />
+
+        <TextView
+            style="@style/Tiyo.FieldLabel"
+            android:layout_marginTop="15dp"
+            android:text="执行权限" />
+
+        <RadioGroup
+            android:id="@+id/agent_permission_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/agent_permission_ask"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:checked="true"
+                android:fontFamily="sans-serif"
+                android:text="谨慎确认　修改和危险操作先问我"
+                android:textColor="@color/tiyo_ink_soft"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/agent_permission_auto"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:fontFamily="sans-serif"
+                android:text="自动执行　删除操作仍然确认"
+                android:textColor="@color/tiyo_ink_soft"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/agent_permission_full"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:fontFamily="sans-serif"
+                android:text="完全授权　只适合明确受控的任务"
+                android:textColor="@color/tiyo_ink_soft"
+                android:textSize="12sp" />
+        </RadioGroup>
+
+        <TextView
+            style="@style/Tiyo.FieldLabel"
+            android:layout_marginTop="15dp"
+            android:text="MiniMax 语音 Key（手机直连，留空不变）" />
+
+        <EditText
+            android:id="@+id/agent_minimax_key"
+            style="@style/Tiyo.AgentField"
+            android:hint="sk-..."
+            android:inputType="textPassword" />
+
+        <TextView
+            style="@style/Tiyo.FieldLabel"
+            android:layout_marginTop="15dp"
+            android:text="生图 Provider" />
+
+        <RadioGroup
+            android:id="@+id/agent_image_gen_provider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/agent_img_seedream"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:checked="true"
+                android:fontFamily="sans-serif"
+                android:text="豆包 seedream"
+                android:textColor="@color/tiyo_ink_soft"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/agent_img_gpt"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:fontFamily="sans-serif"
+                android:text="gpt-image"
+                android:textColor="@color/tiyo_ink_soft"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/agent_img_glm"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:fontFamily="sans-serif"
+                android:text="智谱 GLM（免费）"
+                android:textColor="@color/tiyo_ink_soft"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/agent_img_gemini"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:fontFamily="sans-serif"
+                android:text="Gemini（免费）"
+                android:textColor="@color/tiyo_ink_soft"
+                android:textSize="12sp" />
+        </RadioGroup>
+
+        <TextView
+            style="@style/Tiyo.FieldLabel"
+            android:layout_marginTop="13dp"
+            android:text="生图 API Key（留空不变）" />
+
+        <EditText
+            android:id="@+id/agent_image_gen_key"
+            style="@style/Tiyo.AgentField"
+            android:hint="GLM / 火山 / OpenAI 或中转的 Key"
+            android:inputType="textPassword" />
+
+        <TextView
+            style="@style/Tiyo.FieldLabel"
+            android:layout_marginTop="13dp"
+            android:text="生图 API 地址（gpt-image 用，留空默认 OpenAI）" />
+
+        <EditText
+            android:id="@+id/agent_image_gen_base_url"
+            style="@style/Tiyo.AgentField"
+                android:hint="https://api.openai.com/v1"
+            android:inputType="textUri" />
+
+        <TextView
+            style="@style/Tiyo.FieldLabel"
+            android:layout_marginTop="13dp"
+            android:text="生图模型（gpt-image 用，留空默认）" />
+
+        <EditText
+            android:id="@+id/agent_image_gen_model"
+            style="@style/Tiyo.AgentField"
+            android:hint="gpt-image-2-c"
+            android:inputType="text" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="end"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/agent_settings_cancel"
+                android:layout_width="72dp"
+                android:layout_height="44dp"
+                android:background="@drawable/chat_secondary_button_bg"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:text="取消"
+                android:textColor="@color/tiyo_ink_soft"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/agent_settings_save"
+                android:layout_width="88dp"
+                android:layout_height="44dp"
+                android:layout_marginStart="9dp"
+                android:background="@drawable/chat_send_bg"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:text="保存并启动"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

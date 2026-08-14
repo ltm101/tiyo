@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  守护与权限（我的 → 子页）：原 HomeFragment 的权限管理 + Agent 能力，
+  平移到 d_ 设计系统。Today 页只保留温暖引导卡，完整管理都在这里。
+-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:overScrollMode="ifContentScrolls"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/d_space_xl"
+        android:paddingEnd="@dimen/d_space_xl"
+        android:paddingTop="@dimen/d_space_xl"
+        android:paddingBottom="@dimen/d_space_2xl">
+
+        <TextView
+            style="@style/dText.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="守护与权限" />
+
+        <TextView
+            style="@style/dText.Caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="这些权限让Tiyo能照顾你，数据只在你和Tiyo之间流动" />
+
+        <!-- 基础权限 -->
+        <TextView
+            style="@style/dSectionTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/d_space_xl"
+            android:text="基础权限" />
+
+        <LinearLayout
+            style="@style/dCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/dText.Body"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="使用时间统计"
+                    android:textColor="@color/d_ink" />
+
+                <Button
+                    android:id="@+id/grant_usage_btn"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:text="去授权"
+                    android:textColor="@color/d_accent_deep"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/d_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/dText.Body"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="文件管理"
+                    android:textColor="@color/d_ink" />
+
+                <Button
+                    android:id="@+id/grant_storage_btn"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:text="去授权"
+                    android:textColor="@color/d_accent_deep"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/d_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/dText.Body"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="位置"
+                    android:textColor="@color/d_ink" />
+
+                <Button
+                    android:id="@+id/agent_loc_btn"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:text="去授权"
+                    android:textColor="@color/d_accent_deep"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Agent 能力 -->
+        <TextView
+            style="@style/dSectionTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/d_space_xl"
+            android:text="Agent 能力" />
+
+        <LinearLayout
+            style="@style/dCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/dText.Body"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="通知监听转发"
+                    android:textColor="@color/d_ink" />
+
+                <Button
+                    android:id="@+id/agent_notif_btn"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:text="去开启"
+                    android:textColor="@color/d_accent_deep"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/d_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/dText.Body"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="发短信"
+                    android:textColor="@color/d_ink" />
+
+                <Button
+                    android:id="@+id/agent_sms_btn"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:text="去授权"
+                    android:textColor="@color/d_accent_deep"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/d_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/dText.Body"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="推送通知"
+                    android:textColor="@color/d_ink" />
+
+                <Button
+                    android:id="@+id/agent_push_btn"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:text="去授权"
+                    android:textColor="@color/d_accent_deep"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/d_space_sm"
+                android:layout_marginBottom="@dimen/d_space_sm"
+                android:background="@color/d_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/dText.Body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="上报位置"
+                        android:textColor="@color/d_ink" />
+
+                    <TextView
+                        style="@style/dText.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="让Tiyo知道你在哪" />
+                </LinearLayout>
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/loc_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/d_space_sm"
+                android:layout_marginBottom="@dimen/d_space_sm"
+                android:background="@color/d_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/dText.Body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tiyo帮你回"
+                        android:textColor="@color/d_ink" />
+
+                    <TextView
+                        style="@style/dText.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="开启后Tiyo拟好回复弹通知，你点发送" />
+                </LinearLayout>
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/agent_autoreply_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/d_space_sm"
+                android:layout_marginBottom="@dimen/d_space_sm"
+                android:background="@color/d_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/dText.Body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="好友相处档案"
+                        android:textColor="@color/d_ink" />
+
+                    <TextView
+                        style="@style/dText.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="只学新来信的表达习惯，档案本地加密" />
+                </LinearLayout>
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/friendship_profile_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btn_friendship_profiles"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/dText.Body"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="查看相处档案"
+                    android:textColor="@color/d_ink" />
+
+                <TextView
+                    android:id="@+id/friendship_profile_count"
+                    style="@style/dText.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="还没有档案 →"
+                    android:textColor="@color/d_ink_3" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/d_space_sm"
+                android:layout_marginBottom="@dimen/d_space_sm"
+                android:background="@color/d_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/dText.Body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="陪我玩／陪我刷"
+                        android:textColor="@color/d_ink" />
+
+                    <TextView
+                        style="@style/dText.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="选定应用前台时取经过筛选的单帧，原图不保存" />
+                </LinearLayout>
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/companion_perception_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/dText.Caption"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="抖音" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/companion_douyin_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/dText.Caption"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="王者荣耀" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/companion_wangzhe_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/dText.Caption"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="画面会发送至视觉服务判断是否值得互动" />
+
+                <Button
+                    android:id="@+id/companion_accessibility_btn"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="去开启无障碍"
+                    android:textColor="@color/d_accent_deep"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/d_space_sm"
+                android:layout_marginBottom="@dimen/d_space_sm"
+                android:background="@color/d_line" />
+
+            <LinearLayout
+                android:id="@+id/btn_distill_style"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/dText.Body"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="蒸馏我的回复风格"
+                    android:textColor="@color/d_ink" />
+
+                <TextView
+                    style="@style/dText.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="导入聊天记录 →"
+                    android:textColor="@color/d_ink_3" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/d_space_sm"
+                android:layout_marginBottom="@dimen/d_space_sm"
+                android:background="@color/d_line" />
+
+            <TextView
+                style="@style/dText.Body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="主动消息频率"
+                android:textColor="@color/d_ink" />
+
+            <RadioGroup
+                android:id="@+id/proactive_freq_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/proactive_freq_3"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="3 条/天"
+                    android:textColor="@color/d_ink_2"
+                    android:textSize="12sp" />
+
+                <RadioButton
+                    android:id="@+id/proactive_freq_6"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="6 条/天"
+                    android:textColor="@color/d_ink_2"
+                    android:textSize="12sp" />
+
+                <RadioButton
+                    android:id="@+id/proactive_freq_10"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="10 条/天"
+                    android:textColor="@color/d_ink_2"
+                    android:textSize="12sp" />
+
+                <RadioButton
+                    android:id="@+id/proactive_freq_20"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="20 条/天"
+                    android:textColor="@color/d_ink_2"
+                    android:textSize="12sp" />
+            </RadioGroup>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

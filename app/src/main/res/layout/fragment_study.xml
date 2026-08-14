@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/d_canvas">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- 头部：标题 + 状态 + 设置 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="18dp"
+            android:paddingTop="14dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="6dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif"
+                android:text="学习模式"
+                android:textColor="@color/d_ink"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/study_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:text=""
+                android:textColor="@color/d_ink_3"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/btn_study_settings"
+                style="@style/dChip"
+                android:layout_height="32dp"
+                android:layout_marginStart="8dp"
+                android:text="设置" />
+        </LinearLayout>
+
+        <!-- 模式切换：问答 / 引导 / 出题 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:paddingBottom="6dp">
+
+            <TextView
+                android:id="@+id/chip_study_qa"
+                android:layout_width="0dp"
+                android:layout_height="34dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="问答"
+                android:textColor="@color/d_ink_3"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/chip_study_socratic"
+                android:layout_width="0dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="引导"
+                android:textColor="@color/d_ink_3"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/chip_study_quiz"
+                android:layout_width="0dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="出题"
+                android:textColor="@color/d_ink_3"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- 消息区 -->
+        <ScrollView
+            android:id="@+id/study_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:fillViewport="true"
+            android:overScrollMode="never"
+            android:paddingStart="14dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="14dp"
+            android:paddingBottom="14dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/study_messages"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:orientation="vertical" />
+        </ScrollView>
+
+        <!-- 快捷操作 -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:paddingBottom="6dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/btn_study_import"
+                    style="@style/dChip"
+                    android:text="导入资料" />
+
+                <TextView
+                    android:id="@+id/btn_study_files"
+                    style="@style/dChip"
+                    android:layout_marginStart="8dp"
+                    android:text="资料库" />
+
+                <TextView
+                    android:id="@+id/btn_study_weak"
+                    style="@style/dChip"
+                    android:layout_marginStart="8dp"
+                    android:text="薄弱点" />
+
+                <TextView
+                    android:id="@+id/btn_study_clear"
+                    style="@style/dChip"
+                    android:layout_marginStart="8dp"
+                    android:text="清空对话" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <!-- 输入区：胶囊 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/d_composer_bg"
+            android:elevation="2dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="8dp"
+            android:paddingTop="6dp"
+            android:paddingEnd="6dp"
+            android:paddingBottom="6dp">
+
+            <EditText
+                android:id="@+id/study_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="6dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:fontFamily="sans-serif"
+                android:gravity="center_vertical"
+                android:hint="输入问题，或直接在出题模式作答"
+                android:importantForAutofill="no"
+                android:imeOptions="actionSend"
+                android:inputType="textCapSentences|textMultiLine"
+                android:maxLines="4"
+                android:minHeight="40dp"
+                android:paddingStart="8dp"
+                android:paddingTop="6dp"
+                android:paddingEnd="6dp"
+                android:paddingBottom="6dp"
+                android:textColor="@color/d_ink"
+                android:textColorHint="@color/d_ink_3"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/btn_study_send"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:background="@drawable/d_send_circle"
+                android:gravity="center"
+                android:text="↑"
+                android:textColor="@color/d_ink_on_accent"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

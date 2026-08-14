@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    android:gravity="top"
+    android:orientation="horizontal"
+    android:paddingStart="0dp"
+    android:paddingEnd="30dp">
+
+    <ImageView
+        android:id="@+id/chat_avatar"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/chat_avatar_bg"
+        android:contentDescription="@string/chat_koyo_name"
+        android:padding="1dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_launcher" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/chat_image"
+            android:layout_width="190dp"
+            android:layout_height="190dp"
+            android:background="@drawable/chat_image_round_bg"
+            android:scaleType="fitCenter" />
+
+        <TextView
+            android:id="@+id/chat_image_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:drawableStart="@drawable/ic_focus_save"
+            android:drawablePadding="5dp"
+            android:minHeight="48dp"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="8dp"
+            android:text="保存"
+            android:textColor="@color/d_focus_ink_2"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/chat_message_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="sans-serif"
+            android:textColor="@color/d_focus_ink_3"
+            android:textSize="11sp" />
+    </LinearLayout>
+</LinearLayout>

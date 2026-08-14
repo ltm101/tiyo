@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/d_canvas"
+    android:fillViewport="true"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/d_space_lg"
+        android:paddingTop="@dimen/d_space_lg"
+        android:paddingEnd="@dimen/d_space_lg"
+        android:paddingBottom="32dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/skill_back_btn"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:gravity="center"
+                android:text="‹"
+                android:textColor="@color/d_ink"
+                android:textSize="32sp" />
+
+            <TextView
+                style="@style/dText.Title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Skill 能力包" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/dText.Caption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="44dp"
+            android:text="导入带 SKILL.md 的 zip，Agent 会按名称和描述自动选择，不会一次把所有能力都塞进上下文" />
+
+        <TextView
+            style="@style/dSectionTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/d_space_xl"
+            android:text="导入能力" />
+
+        <LinearLayout
+            style="@style/dCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/skill_name"
+                style="@style/Tiyo.AgentField"
+                android:hint="可选：自定义名称"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:maxLines="1" />
+
+            <TextView
+                android:id="@+id/btn_skill_import"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/chat_send_bg"
+                android:gravity="center"
+                android:text="选择 Skill 压缩包"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/skill_status"
+                style="@style/dText.Caption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/dSectionTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/d_space_xl"
+            android:text="已安装" />
+
+        <LinearLayout
+            android:id="@+id/skill_list"
+            style="@style/dCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 语义卡片背景：白面 + 中等圆角；柔和阴影由 elevation 提供 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/d_surface" />
+    <corners android:radius="@dimen/d_radius_card" />
+</shape>

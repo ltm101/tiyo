@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Tiyo 设计系统 · 语义颜色 token（浅色）
+  命名约定 d_ = design。值对应 UI 方案：奶油底 / 墨字 / 珊瑚强调 / 白卡。
+  旧 tiyo_* token 保留不动，本层供新界面逐步使用。
+-->
+<resources>
+    <!-- 背景 / 表面 -->
+    <color name="d_canvas">#FAF8F5</color>
+    <color name="d_surface">#FFFFFF</color>
+    <color name="d_surface_alt">#F2EDE6</color>
+    <color name="d_surface_overlay">#FFFCF8</color>
+
+    <!-- 文字 -->
+    <color name="d_ink">#111111</color>
+    <color name="d_ink_2">#6B645C</color>
+    <color name="d_ink_3">#9C938A</color>
+    <color name="d_ink_on_accent">#FFFFFF</color>
+
+    <!-- 强调（珊瑚） -->
+    <color name="d_accent">#FF7657</color>
+    <color name="d_accent_soft">#FFE7E0</color>
+    <color name="d_accent_deep">#E24E2E</color>
+    <color name="d_accent_alt">#FFB19B</color>
+
+    <!-- 线条 / 分隔 -->
+    <color name="d_line">#EAE2D8</color>
+    <color name="d_line_strong">#DCD1C2</color>
+
+    <!-- 状态 -->
+    <color name="d_pos">#5E856C</color>
+    <color name="d_warn">#B47737</color>
+    <color name="d_neg">#C05648</color>
+    <color name="d_info">#6B8BAB</color>
+
+    <!-- 覆盖 / 阴影 -->
+    <color name="d_scrim">#3A2E20</color>
+    <color name="d_shadow">#3A2E20</color>
+
+    <!-- 聊天 · 专注模式（Claude App 暖奶油调） -->
+    <color name="d_focus_canvas">#F7F3ED</color>
+    <color name="d_focus_surface">#FFFDF9</color>
+    <color name="d_focus_surface_alt">#EFE8DF</color>
+    <color name="d_focus_ink">#2F2924</color>
+    <color name="d_focus_ink_2">#6F655B</color>
+    <color name="d_focus_ink_3">#9B9085</color>
+    <color name="d_focus_on_accent">#FFFFFF</color>
+    <color name="d_focus_accent">#DD6B4D</color>
+    <color name="d_focus_accent_pressed">#C7583D</color>
+    <color name="d_focus_line">#DED5CA</color>
+    <color name="d_focus_shadow">#4A382C</color>
+    <color name="d_focus_scrim">#6B5547</color>
+</resources>

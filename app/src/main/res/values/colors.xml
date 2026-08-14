@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="tiyo_ink">#29231F</color>
+    <color name="tiyo_ink_soft">#675E57</color>
+    <color name="tiyo_muted">#948A82</color>
+    <color name="tiyo_canvas">#F7F0E6</color>
+    <color name="tiyo_surface">#FFFCF7</color>
+    <color name="tiyo_surface_warm">#F1E7DB</color>
+    <color name="tiyo_line">#E5D8CB</color>
+    <color name="tiyo_accent">#E58B62</color>
+    <color name="tiyo_accent_dark">#C96F4B</color>
+    <color name="tiyo_success">#5E856C</color>
+    <color name="tiyo_warning">#B47737</color>
+    <color name="tiyo_error">#B65D55</color>
+    <color name="tiyo_icon_background">#F7F0E6</color>
+</resources>

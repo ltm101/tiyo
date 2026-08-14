@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 主按钮：珊瑚实底 + 中圆角 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/d_accent" />
+    <corners android:radius="@dimen/d_radius_md" />
+</shape>

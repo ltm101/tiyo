@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- 默认列表：资料头 + 数据/外观入口 -->
+    <ScrollView
+        android:id="@+id/me_home_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:fillViewport="true"
+        android:overScrollMode="ifContentScrolls"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/d_space_lg"
+            android:paddingEnd="@dimen/d_space_lg"
+            android:paddingTop="@dimen/d_space_xl">
+
+            <!-- 资料头 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/d_space_xl">
+
+                <ImageView
+                    android:id="@+id/me_avatar"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:background="@drawable/d_avatar_bg"
+                    android:contentDescription="Tiyo"
+                    android:padding="2dp"
+                    android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/d_space_lg"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/me_companion_name"
+                        style="@style/dText.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tiyo" />
+
+                    <TextView
+                        android:id="@+id/me_companion_subtitle"
+                        style="@style/dText.Body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="你的手机伴侣" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 数据与设备 -->
+            <TextView
+                style="@style/dSectionTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="数据与设备" />
+
+            <LinearLayout
+                style="@style/dCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/me_row_stats"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/dText.Body"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="屏幕用量"
+                        android:textColor="@color/d_ink" />
+
+                    <TextView
+                        style="@style/dText.Body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="›"
+                        android:textColor="@color/d_ink_3"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/d_line" />
+
+                <LinearLayout
+                    android:id="@+id/me_row_activity"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/dText.Body"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="步数"
+                        android:textColor="@color/d_ink" />
+
+                    <TextView
+                        style="@style/dText.Body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="›"
+                        android:textColor="@color/d_ink_3"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/d_line" />
+
+                <LinearLayout
+                    android:id="@+id/me_row_mail"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/dText.Body"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="邮箱与天气"
+                        android:textColor="@color/d_ink" />
+
+                    <TextView
+                        style="@style/dText.Body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="›"
+                        android:textColor="@color/d_ink_3"
+                        android:textSize="20sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 守护 -->
+            <TextView
+                style="@style/dSectionTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/d_space_xl"
+                android:text="守护" />
+
+            <LinearLayout
+                style="@style/dCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/me_row_guard"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/dText.Body"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="守护与权限"
+                        android:textColor="@color/d_ink" />
+
+                    <TextView
+                        style="@style/dText.Body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="›"
+                        android:textColor="@color/d_ink_3"
+                        android:textSize="20sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Tiyo -->
+            <TextView
+                style="@style/dSectionTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/d_space_xl"
+                android:text="Tiyo" />
+
+            <LinearLayout
+                style="@style/dCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/me_row_companions"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/dText.Body"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="伴生角色"
+                        android:textColor="@color/d_ink" />
+
+                    <TextView
+                        style="@style/dText.Body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="›"
+                        android:textColor="@color/d_ink_3"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/d_line" />
+
+                <LinearLayout
+                    android:id="@+id/me_row_study"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/dText.Body"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="学习模式"
+                        android:textColor="@color/d_ink" />
+
+                    <TextView
+                        style="@style/dText.Body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="›"
+                        android:textColor="@color/d_ink_3"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/d_line" />
+
+                <LinearLayout
+                    android:id="@+id/me_row_reply_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/dText.Body"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="回复性格"
+                        android:textColor="@color/d_ink" />
+
+                    <TextView
+                        style="@style/dText.Body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="›"
+                        android:textColor="@color/d_ink_3"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/d_line" />
+
+                <LinearLayout
+                    android:id="@+id/me_row_persona"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/dText.Body"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="人格与记忆"
+                        android:textColor="@color/d_ink" />
+
+                    <TextView
+                        style="@style/dText.Body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="›"
+                        android:textColor="@color/d_ink_3"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/d_line" />
+
+                <LinearLayout
+                    android:id="@+id/me_row_memory"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/dText.Body"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="记忆管理"
+                        android:textColor="@color/d_ink" />
+
+                    <TextView
+                        style="@style/dText.Body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="›"
+                        android:textColor="@color/d_ink_3"
+                        android:textSize="20sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 表情包 -->
+            <TextView
+                style="@style/dSectionTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/d_space_xl"
+                android:text="表情包" />
+
+            <LinearLayout
+                style="@style/dCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/me_row_stickers"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/dText.Body"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="表情包管理"
+                        android:textColor="@color/d_ink" />
+
+                    <TextView
+                        style="@style/dText.Body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="›"
+                        android:textColor="@color/d_ink_3"
+                        android:textSize="20sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 帮助 -->
+            <TextView
+                style="@style/dSectionTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/d_space_xl"
+                android:text="帮助" />
+
+            <LinearLayout
+                style="@style/dCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/me_row_help"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/dText.Body"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="新手帮助"
+                        android:textColor="@color/d_ink" />
+
+                    <TextView
+                        style="@style/dText.Body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="›"
+                        android:textColor="@color/d_ink_3"
+                        android:textSize="20sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- 子页面容器：屏幕/步数/主题 推入这里；无子页面时隐藏，避免盖住列表 -->
+    <FrameLayout
+        android:id="@+id/me_content_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:visibility="gone" />
+
+</FrameLayout>

@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 邮箱与天气设置：邮件遥控/报告 + 天气坐标，全部由使用者自己填 -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/d_space_xl"
+        android:paddingEnd="@dimen/d_space_xl"
+        android:paddingTop="@dimen/d_space_xl"
+        android:paddingBottom="@dimen/d_space_2xl">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/mail_back_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="4dp"
+                android:text="‹"
+                android:textColor="@color/d_ink"
+                android:textSize="24sp" />
+
+            <TextView
+                style="@style/dText.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="邮箱与天气" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/dText.Caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="邮件用来远程遥控 tiyo 和收报告，天气用来显示今天的天气" />
+
+        <!-- 邮箱 -->
+        <TextView
+            style="@style/dSectionTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/d_space_xl"
+            android:text="邮箱" />
+
+        <LinearLayout
+            style="@style/dCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/dText.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="留空则邮件功能静默关闭。怎么申请见「帮助」" />
+
+            <TextView
+                style="@style/dText.Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/d_space_lg"
+                android:text="发件 QQ 邮箱" />
+
+            <EditText
+                android:id="@+id/mail_qq_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/d_chip_bg"
+                android:hint="你的 QQ 号@qq.com"
+                android:importantForAutofill="no"
+                android:inputType="textEmailAddress"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/d_ink"
+                android:textColorHint="@color/d_ink_3"
+                android:textSize="14sp" />
+
+            <TextView
+                style="@style/dText.Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/d_space_lg"
+                android:text="邮箱授权码" />
+
+            <EditText
+                android:id="@+id/mail_qq_auth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/d_chip_bg"
+                android:hint="QQ 邮箱设置里生成的授权码"
+                android:importantForAutofill="no"
+                android:inputType="textPassword"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/d_ink"
+                android:textColorHint="@color/d_ink_3"
+                android:textSize="14sp" />
+
+            <TextView
+                style="@style/dText.Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/d_space_lg"
+                android:text="收报告邮箱（agent 邮箱）" />
+
+            <EditText
+                android:id="@+id/mail_agent_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/d_chip_bg"
+                android:hint="接收日报和预警的邮箱"
+                android:importantForAutofill="no"
+                android:inputType="textEmailAddress"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/d_ink"
+                android:textColorHint="@color/d_ink_3"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- 天气 -->
+        <TextView
+            style="@style/dSectionTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/d_space_xl"
+            android:text="天气位置" />
+
+        <LinearLayout
+            style="@style/dCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/dText.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="经纬度，留空则今天页不显示天气" />
+
+            <TextView
+                style="@style/dText.Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/d_space_lg"
+                android:text="纬度" />
+
+            <EditText
+                android:id="@+id/mail_lat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/d_chip_bg"
+                android:hint="如 39.90"
+                android:importantForAutofill="no"
+                android:inputType="numberDecimal"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/d_ink"
+                android:textColorHint="@color/d_ink_3"
+                android:textSize="14sp" />
+
+            <TextView
+                style="@style/dText.Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/d_space_lg"
+                android:text="经度" />
+
+            <EditText
+                android:id="@+id/mail_lon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/d_chip_bg"
+                android:hint="如 116.40"
+                android:importantForAutofill="no"
+                android:inputType="numberDecimal"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/d_ink"
+                android:textColorHint="@color/d_ink_3"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_mail_save"
+            style="@style/dButton.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/d_button_height"
+            android:layout_marginTop="@dimen/d_space_xl"
+            android:text="保存" />
+
+        <TextView
+            android:id="@+id/mail_save_status"
+            style="@style/dText.Caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/d_space_sm"
+            android:text=""
+            android:textColor="@color/d_ink_2" />
+
+    </LinearLayout>
+</ScrollView>

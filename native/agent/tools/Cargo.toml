@@ -1,0 +1,27 @@
+[package]
+name = "tiyo-tools"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+async-trait.workspace = true
+tiyo-engine = { path = "../engine" }
+tiyo-security = { path = "../security" }
+tiyo-services = { path = "../services" }
+tiyo-catalogs = { path = "../catalogs" }
+anyhow.workspace = true
+base64 = "0.22"
+ignore.workspace = true
+regex.workspace = true
+reqwest.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+tokio.workspace = true
+uuid.workspace = true
+
+[dev-dependencies]
+tempfile.workspace = true

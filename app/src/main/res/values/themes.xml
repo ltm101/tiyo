@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.ScreenWarden" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="colorPrimary">#E8976B</item>
+        <item name="colorPrimaryDark">#D4845A</item>
+        <item name="colorAccent">#F0BFA0</item>
+        <item name="android:colorBackground">#FFF8F0</item>
+        <item name="android:statusBarColor">#F5E6D3</item>
+        <item name="android:navigationBarColor">#FFF8F0</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="android:fontFamily">sans</item>
+    </style>
+
+    <style name="Tiyo.NavItem" parent="">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/tiyo_muted</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:letterSpacing">0.02</item>
+    </style>
+
+    <style name="Tiyo.ChatAction" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">38dp</item>
+        <item name="android:background">@drawable/chat_secondary_button_bg</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingStart">13dp</item>
+        <item name="android:paddingEnd">13dp</item>
+        <item name="android:textColor">@color/tiyo_ink_soft</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <style name="Tiyo.FieldLabel" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/tiyo_ink</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="Tiyo.AgentField" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:background">@drawable/tiyo_field_bg</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:paddingStart">13dp</item>
+        <item name="android:paddingEnd">13dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/tiyo_ink</item>
+        <item name="android:textColorHint">@color/tiyo_muted</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+</resources>

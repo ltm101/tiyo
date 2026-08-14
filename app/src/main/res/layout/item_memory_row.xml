@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 记忆管理列表行：重要星标 + 名称 + 说明 + 时间 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:foreground="?attr/selectableItemBackground"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingTop="@dimen/d_space_sm"
+    android:paddingBottom="@dimen/d_space_sm">
+
+    <TextView
+        android:id="@+id/memory_row_star"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="☆"
+        android:textColor="@color/d_ink_3"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/d_space_sm"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/memory_row_name"
+                style="@style/dText.Body"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/d_ink"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/memory_row_type_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/d_chip_bg"
+                android:paddingStart="@dimen/d_space_sm"
+                android:paddingEnd="@dimen/d_space_sm"
+                android:paddingTop="1dp"
+                android:paddingBottom="1dp"
+                android:textColor="@color/d_accent_deep"
+                android:textSize="11sp"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/memory_row_desc"
+            style="@style/dText.Caption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:ellipsize="end"
+            android:maxLines="2" />
+
+        <TextView
+            android:id="@+id/memory_row_time"
+            style="@style/dText.Caption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/d_ink_3" />
+    </LinearLayout>
+</LinearLayout>

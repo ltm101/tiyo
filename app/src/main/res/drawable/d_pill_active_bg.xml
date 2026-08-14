@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 导航选中胶囊：珊瑚浅色底 + 全圆角 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/d_accent_soft" />
+    <corners android:radius="@dimen/d_radius_pill" />
+</shape>

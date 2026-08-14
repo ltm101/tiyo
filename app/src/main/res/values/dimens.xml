@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 间距刻度 -->
+    <dimen name="d_space_xs">4dp</dimen>
+    <dimen name="d_space_sm">8dp</dimen>
+    <dimen name="d_space_md">12dp</dimen>
+    <dimen name="d_space_lg">16dp</dimen>
+    <dimen name="d_space_xl">24dp</dimen>
+    <dimen name="d_space_2xl">32dp</dimen>
+
+    <!-- 圆角刻度 -->
+    <dimen name="d_radius_sm">10dp</dimen>
+    <dimen name="d_radius_md">16dp</dimen>
+    <dimen name="d_radius_card">20dp</dimen>
+    <dimen name="d_radius_lg">24dp</dimen>
+    <dimen name="d_radius_pill">999dp</dimen>
+
+    <!-- 组件尺寸 -->
+    <dimen name="d_nav_height">68dp</dimen>
+    <dimen name="d_card_padding">16dp</dimen>
+    <dimen name="d_button_height">46dp</dimen>
+    <dimen name="d_chip_height">30dp</dimen>
+    <dimen name="d_elevation_card">3dp</dimen>
+    <dimen name="d_elevation_nav">10dp</dimen>
+
+    <!-- 聊天 · 专注模式 -->
+    <dimen name="d_radius_control">12dp</dimen>
+    <dimen name="d_radius_input">18dp</dimen>
+    <dimen name="d_touch_target">48dp</dimen>
+    <dimen name="d_drawer_width">304dp</dimen>
+    <dimen name="d_attachment_thumb">58dp</dimen>
+    <dimen name="d_elevation_chat">2dp</dimen>
+</resources>

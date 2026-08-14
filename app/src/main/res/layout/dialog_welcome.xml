@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/tiyo_panel_bg"
+    android:orientation="vertical"
+    android:paddingStart="24dp"
+    android:paddingTop="26dp"
+    android:paddingEnd="24dp"
+    android:paddingBottom="22dp">
+
+    <ImageView
+        android:id="@+id/welcome_avatar"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="Tiyo"
+        android:scaleType="fitCenter" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="14dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="你好，我是Tiyo"
+        android:textColor="@color/tiyo_ink"
+        android:textSize="21sp" />
+
+    <!-- 第一步：选年龄段 -->
+    <LinearLayout
+        android:id="@+id/welcome_step_age"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="6dp"
+            android:fontFamily="sans-serif"
+            android:text="先告诉我你大概多大年纪？"
+            android:textColor="@color/tiyo_muted"
+            android:textSize="13sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/welcome_age_child"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="6dp"
+                android:background="@drawable/tiyo_chip_bg"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:text="0-15岁"
+                android:textColor="@color/tiyo_ink"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/welcome_age_youth"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:background="@drawable/tiyo_chip_bg"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:text="16-30岁"
+                android:textColor="@color/tiyo_ink"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/welcome_age_middle"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="6dp"
+                android:background="@drawable/tiyo_chip_bg"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:text="30-60岁"
+                android:textColor="@color/tiyo_ink"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/welcome_age_elder"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:background="@drawable/tiyo_chip_bg"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:text="60岁及以上"
+                android:textColor="@color/tiyo_ink"
+                android:textSize="13sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- 第二步：输称呼 -->
+    <LinearLayout
+        android:id="@+id/welcome_step_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="6dp"
+            android:fontFamily="sans-serif"
+            android:text="你希望我怎么称呼你？"
+            android:textColor="@color/tiyo_muted"
+            android:textSize="13sp" />
+
+        <EditText
+            android:id="@+id/welcome_name_input"
+            style="@style/Tiyo.AgentField"
+            android:layout_marginTop="16dp"
+            android:hint="告诉Tiyo你的秘密吧！"
+            android:inputType="text"
+            android:maxLines="1"
+            android:imeOptions="actionDone" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/welcome_start"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/chat_send_bg"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:text="开始"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp" />
+
+</LinearLayout>

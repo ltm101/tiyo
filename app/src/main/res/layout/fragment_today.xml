@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Today 页 v2（样本融合版）：
+  小问候 → 宠物 Hero → 天气行卡 → 双数据卡 → 今日任务 → tiyo 建议
+  → Tiyo的时刻 → 权限引导卡。下拉拉宠物由 TodayScrollView 驱动。
+-->
+<com.koyo.screenwarden.TodayScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/today_scroll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:overScrollMode="never"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/d_space_xl"
+        android:paddingEnd="@dimen/d_space_xl"
+        android:paddingTop="@dimen/d_space_xl"
+        android:paddingBottom="@dimen/d_space_2xl">
+
+        <!-- 头部：短问候 + 日期 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/today_greeting"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif"
+                android:maxLines="1"
+                android:text="你好"
+                android:textColor="@color/d_ink"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/today_date"
+                style="@style/dText.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/d_space_md"
+                android:layout_marginBottom="3dp"
+                android:text="" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/today_detail"
+            style="@style/dText.Body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text=""
+            android:visibility="gone" />
+
+        <!--
+          宠物 Hero 占位槽。Tiyo本人挂在 MainActivity 上（KoyoDock），
+          这里只留一个同尺寸的空 View 把版面撑开、并告诉她该站在哪。
+          这样切页时她是移动过去的，动画不会断。
+        -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="232dp"
+            android:layout_marginTop="@dimen/d_space_sm">
+
+            <TextView
+                android:id="@+id/today_chat_invite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|center_horizontal"
+                android:background="@drawable/bg_today_chat_invite"
+                android:elevation="3dp"
+                android:paddingStart="16dp"
+                android:paddingTop="9dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="9dp"
+                android:text="点我开始聊天"
+                android:textColor="@color/tiyo_ink"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <View
+                android:id="@+id/today_cat_slot"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="bottom|center_horizontal" />
+        </FrameLayout>
+
+        <!-- 天气行卡 -->
+        <LinearLayout
+            android:id="@+id/weather_card"
+            style="@style/dCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/d_space_sm"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/weather_temp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/d_ink"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/weather_condition"
+                style="@style/dText.Body"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/d_space_sm"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/weather_date"
+                style="@style/dText.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <!-- 双数据卡：步数 / 屏幕 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/d_space_md"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                style="@style/dCard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/dText.Label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="今日步数" />
+
+                <TextView
+                    android:id="@+id/glance_step_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="--"
+                    android:textColor="@color/d_ink"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/glance_step_sub"
+                    style="@style/dText.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/dCard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/dText.Label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="屏幕时间" />
+
+                <TextView
+                    android:id="@+id/glance_screen_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="--"
+                    android:textColor="@color/d_ink"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/glance_screen_sub"
+                    style="@style/dText.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- tiyo 建议：规则生成 + 宠物探头 -->
+        <TextView
+            style="@style/dSectionTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/d_space_xl"
+            android:text="tiyo 建议" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                style="@style/dCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/suggest_text"
+                    style="@style/dText.Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="56dp"
+                    android:textColor="@color/d_ink"
+                    android:text="今天也加油，我一直在" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/suggest_pet"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:layout_gravity="bottom|end"
+                android:layout_marginEnd="10dp"
+                android:contentDescription="Tiyo"
+                android:src="@mipmap/ic_launcher"
+                android:translationY="10dp" />
+        </FrameLayout>
+
+        <!-- Tiyo帮你回：追溯入口 -->
+        <TextView
+            style="@style/dSectionTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/d_space_xl"
+            android:text="Tiyo帮你回" />
+
+        <LinearLayout
+            android:id="@+id/today_reply_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/d_space_sm"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/today_autoreply_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_secondary_bg"
+                android:text="📋 查看自动回复记录"
+                android:textColor="@color/d_ink"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <!-- Tiyo的时刻：tiyo 记得的事（差异化核心） -->
+        <TextView
+            android:id="@+id/today_feed_title"
+            style="@style/dSectionTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/d_space_xl"
+            android:text="Tiyo的时刻"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/today_feed_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+        <!-- 权限温暖引导卡容器（缺失才显示） -->
+        <LinearLayout
+            android:id="@+id/today_perm_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+        <TextView
+            style="@style/dText.Caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/d_space_2xl"
+            android:text="数据只在你和Tiyo之间流动" />
+
+    </LinearLayout>
+</com.koyo.screenwarden.TodayScrollView>

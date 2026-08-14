@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 今日任务单行：圆勾 + 内容 + 右侧时间 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingTop="@dimen/d_space_sm"
+    android:paddingBottom="@dimen/d_space_sm">
+
+    <TextView
+        android:id="@+id/task_check"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:background="@drawable/d_task_ring"
+        android:gravity="center"
+        android:text="✓"
+        android:textColor="@android:color/transparent"
+        android:textSize="13sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/task_text"
+        style="@style/dText.Body"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/d_space_md"
+        android:layout_weight="1"
+        android:textColor="@color/d_ink" />
+
+    <TextView
+        android:id="@+id/task_time"
+        style="@style/dText.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/d_space_sm" />
+</LinearLayout>

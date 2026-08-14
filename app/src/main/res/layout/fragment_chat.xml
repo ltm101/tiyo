@@ -1,0 +1,661 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  阶段一 · 专注模式
+  头像打开会话侧栏，消息仍由 ScrollView + LinearLayout 手动渲染
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/d_focus_canvas">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- Tiyo头像打开侧栏，右侧常驻显示当前模型与上下文用量 -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="68dp">
+
+            <FrameLayout
+                android:id="@+id/btn_chat_drawer"
+                android:layout_width="@dimen/d_touch_target"
+                android:layout_height="@dimen/d_touch_target"
+                android:layout_gravity="start|top"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:contentDescription="打开会话侧栏"
+                android:focusable="true">
+
+                <ImageView
+                    android:id="@+id/chat_header_avatar"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/chat_avatar_bg"
+                    android:contentDescription="@string/chat_avatar_description"
+                    android:padding="1dp"
+                    android:scaleType="centerCrop"
+        android:src="@mipmap/ic_launcher" />
+
+                <View
+                    android:id="@+id/chat_status_dot"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginEnd="3dp"
+                    android:layout_marginBottom="3dp"
+                    android:background="@drawable/chat_status_offline_bg" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="76dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/chat_model_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="模型 · --"
+                    android:textColor="@color/d_focus_ink"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/chat_context_meter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="上下文 --"
+                    android:textColor="@color/d_focus_ink_3"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <!-- 连接状态继续由头像角标表达，文本只供现有状态逻辑更新 -->
+            <TextView
+                android:id="@+id/chat_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+        </FrameLayout>
+
+        <!-- 路由开关逻辑保留，不占据专注模式界面 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/chat_route_hint"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switch_chat_voice"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:checked="true" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switch_chat_car"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:checked="false" />
+        </LinearLayout>
+
+        <ScrollView
+            android:id="@+id/chat_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:fillViewport="true"
+            android:overScrollMode="never"
+            android:paddingStart="14dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="14dp"
+            android:paddingBottom="18dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/chat_messages"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:orientation="vertical" />
+        </ScrollView>
+
+        <!-- 快捷指令从图标旁横向浮出 -->
+        <HorizontalScrollView
+            android:id="@+id/quick_panel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginEnd="14dp"
+            android:layout_marginBottom="6dp"
+            android:background="@drawable/chat_focus_quick_panel_bg"
+            android:clipToPadding="false"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:scrollbars="none"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/btn_chat_sessions"
+                    style="@style/dChip"
+                    android:layout_height="48dp"
+                    android:background="@drawable/chat_focus_drawer_item_bg"
+                    android:text="会话" />
+
+                <TextView
+                    android:id="@+id/btn_chat_plan"
+                    style="@style/dChip"
+                    android:layout_height="48dp"
+                    android:background="@drawable/chat_focus_drawer_item_bg"
+                    android:text="计划模式" />
+
+                <TextView
+                    android:id="@+id/btn_chat_voice_style"
+                    style="@style/dChip"
+                    android:layout_height="48dp"
+                    android:background="@drawable/chat_focus_drawer_item_bg"
+                    android:text="@string/chat_voice_style" />
+
+                <TextView
+                    android:id="@+id/btn_chat_voice_toggle"
+                    style="@style/dChip"
+                    android:layout_height="48dp"
+                    android:background="@drawable/chat_focus_drawer_item_bg"
+                    android:text="@string/chat_voice_on" />
+
+                <TextView
+                    android:id="@+id/btn_live2d_collapse"
+                    style="@style/dChip"
+                    android:layout_height="48dp"
+                    android:background="@drawable/chat_focus_drawer_item_bg"
+                    android:text="@string/live2d_collapse" />
+
+                <TextView
+                    android:id="@+id/btn_chat_stop_audio"
+                    style="@style/dChip"
+                    android:layout_height="48dp"
+                    android:background="@drawable/chat_focus_drawer_item_bg"
+                    android:text="停止播放" />
+
+                <TextView
+                    android:id="@+id/quick_photo"
+                    style="@style/dChip"
+                    android:layout_height="48dp"
+                    android:background="@drawable/chat_focus_drawer_item_bg"
+                    android:text="@string/chat_quick_photo" />
+
+                <TextView
+                    android:id="@+id/quick_doing"
+                    style="@style/dChip"
+                    android:layout_height="48dp"
+                    android:background="@drawable/chat_focus_drawer_item_bg"
+                    android:text="@string/chat_quick_doing" />
+
+                <TextView
+                    android:id="@+id/quick_story"
+                    style="@style/dChip"
+                    android:layout_height="48dp"
+                    android:background="@drawable/chat_focus_drawer_item_bg"
+                    android:text="@string/chat_quick_story" />
+
+                <TextView
+                    android:id="@+id/quick_happy"
+                    style="@style/dChip"
+                    android:layout_height="48dp"
+                    android:background="@drawable/chat_focus_drawer_item_bg"
+                    android:text="@string/chat_quick_happy" />
+
+                <LinearLayout
+                    android:id="@+id/quick_custom_box"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" />
+
+                <TextView
+                    android:id="@+id/btn_quick_custom"
+                    style="@style/dChip"
+                    android:layout_height="48dp"
+                    android:background="@drawable/chat_focus_drawer_item_bg"
+                    android:text="自定义" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <!-- 加号菜单严格保留图片、文件、工作台三项 -->
+        <LinearLayout
+            android:id="@+id/chat_attachment_action_menu"
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginBottom="6dp"
+            android:background="@drawable/chat_focus_action_menu_bg"
+            android:elevation="6dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/btn_chat_image"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/chat_focus_drawer_item_bg"
+                android:drawableStart="@drawable/ic_focus_image"
+                android:drawablePadding="12dp"
+                android:gravity="center_vertical"
+                android:paddingStart="13dp"
+                android:paddingEnd="13dp"
+                android:text="图片"
+                android:textColor="@color/d_focus_ink"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/btn_chat_file"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/chat_focus_drawer_item_bg"
+                android:drawableStart="@drawable/ic_focus_file"
+                android:drawablePadding="12dp"
+                android:gravity="center_vertical"
+                android:paddingStart="13dp"
+                android:paddingEnd="13dp"
+                android:text="文件"
+                android:textColor="@color/d_focus_ink"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/btn_chat_workspace"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/chat_focus_drawer_item_bg"
+                android:drawableStart="@drawable/ic_focus_workspace"
+                android:drawablePadding="12dp"
+                android:gravity="center_vertical"
+                android:paddingStart="13dp"
+                android:paddingEnd="13dp"
+                android:text="工作台"
+                android:textColor="@color/d_focus_ink"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- 相机入口由“图片”二级选择唤起，保留 id 兼容旧逻辑 -->
+        <TextView
+            android:id="@+id/btn_chat_camera"
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            android:drawableStart="@drawable/ic_focus_camera"
+            android:visibility="gone" />
+
+        <HorizontalScrollView
+            android:id="@+id/chat_attachment_strip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginEnd="14dp"
+            android:layout_marginBottom="4dp"
+            android:clipToPadding="false"
+            android:scrollbars="none"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:id="@+id/chat_attachment_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
+        </HorizontalScrollView>
+
+        <TextView
+            android:id="@+id/chat_attachment_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="4dp"
+            android:text="跟这些附件说点什么"
+            android:textColor="@color/d_focus_ink_3"
+            android:textSize="11sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/chat_edit_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="4dp"
+            android:text="已选改图原图，输入想改成什么样"
+            android:textColor="@color/d_focus_ink_2"
+            android:textSize="11sp"
+            android:visibility="gone" />
+
+        <!-- 极简输入线，所有触点至少 48dp -->
+        <LinearLayout
+            android:id="@+id/chat_composer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/chat_focus_input_line_bg"
+            android:gravity="bottom"
+            android:orientation="horizontal"
+            android:paddingStart="2dp"
+            android:paddingTop="3dp"
+            android:paddingEnd="3dp"
+            android:paddingBottom="3dp">
+
+            <TextView
+                android:id="@+id/btn_chat_attach"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="添加附件"
+                android:drawableStart="@drawable/ic_focus_add"
+                android:gravity="center" />
+
+            <EditText
+                android:id="@+id/chat_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:fontFamily="sans-serif"
+                android:gravity="center_vertical"
+                android:hint="@string/chat_input_hint"
+                android:importantForAutofill="no"
+                android:imeOptions="actionSend"
+                android:inputType="textCapSentences|textMultiLine"
+                android:maxLines="4"
+                android:minHeight="48dp"
+                android:paddingStart="4dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="4dp"
+                android:paddingBottom="8dp"
+                android:textColor="@color/d_focus_ink"
+                android:textColorHint="@color/d_focus_ink_3"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/btn_chat_mic"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="语音输入"
+                android:drawableStart="@drawable/ic_focus_mic"
+                android:gravity="center"
+                android:textColor="@color/d_focus_ink_2"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/btn_quick_toggle"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="快捷指令"
+                android:drawableStart="@drawable/ic_focus_quick"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/btn_chat_send"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/chat_focus_send_bg"
+                android:contentDescription="@string/chat_send"
+                android:foreground="@drawable/ic_focus_send"
+                android:foregroundGravity="center"
+                android:gravity="center"
+                android:textColor="@color/d_focus_on_accent"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/btn_quick_hint"
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <!-- 自绘侧栏，不改 MainActivity 宿主结构 -->
+    <View
+        android:id="@+id/chat_drawer_scrim"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0"
+        android:background="@color/d_focus_scrim"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/chat_drawer"
+        android:layout_width="@dimen/d_drawer_width"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@drawable/chat_focus_drawer_bg"
+        android:elevation="14dp"
+        android:orientation="vertical"
+        android:paddingStart="16dp"
+        android:paddingTop="22dp"
+        android:paddingEnd="14dp"
+        android:paddingBottom="18dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="14dp"
+            android:text="视角与会话"
+            android:textColor="@color/d_focus_ink"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/btn_chat_new_session"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/chat_focus_drawer_item_bg"
+            android:drawableStart="@drawable/ic_focus_new_session"
+            android:drawablePadding="12dp"
+            android:gravity="center_vertical"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="新建会话"
+            android:textColor="@color/d_focus_ink"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/btn_drawer_today"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@drawable/chat_focus_drawer_item_bg"
+            android:drawableStart="@drawable/d_ic_today"
+            android:drawablePadding="12dp"
+            android:gravity="center_vertical"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="@string/nav_today"
+            android:textColor="@color/d_focus_ink_2"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/btn_drawer_workspace"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@drawable/chat_focus_drawer_item_bg"
+            android:drawableStart="@drawable/d_ic_workspace"
+            android:drawablePadding="12dp"
+            android:gravity="center_vertical"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="@string/nav_workspace"
+            android:textColor="@color/d_focus_ink_2"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/btn_drawer_peripherals"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@drawable/chat_focus_drawer_item_bg"
+            android:drawableStart="@drawable/d_ic_car"
+            android:drawablePadding="12dp"
+            android:gravity="center_vertical"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="@string/nav_car"
+            android:textColor="@color/d_focus_ink_2"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/btn_drawer_me"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@drawable/chat_focus_drawer_item_bg"
+            android:drawableStart="@drawable/d_ic_me"
+            android:drawablePadding="12dp"
+            android:gravity="center_vertical"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="@string/nav_me"
+            android:textColor="@color/d_focus_ink_2"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/d_focus_line" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/chat_session_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </ScrollView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="4dp"
+            android:text="Agent 能力"
+            android:textColor="@color/d_focus_ink_3"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/btn_drawer_mcp"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@drawable/chat_focus_drawer_item_bg"
+            android:drawableStart="@drawable/ic_focus_settings"
+            android:drawablePadding="12dp"
+            android:gravity="center_vertical"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="自定义 MCP"
+            android:textColor="@color/d_focus_ink_2"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/btn_drawer_skills"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@drawable/chat_focus_drawer_item_bg"
+            android:drawableStart="@drawable/ic_focus_workspace"
+            android:drawablePadding="12dp"
+            android:gravity="center_vertical"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="Skill 能力包"
+            android:textColor="@color/d_focus_ink_2"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/btn_drawer_agent_mail"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@drawable/chat_focus_drawer_item_bg"
+            android:drawableStart="@drawable/d_ic_workspace"
+            android:drawablePadding="12dp"
+            android:gravity="center_vertical"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="腾讯 Agent 邮箱  ↗"
+            android:textColor="@color/d_focus_ink_2"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/btn_drawer_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@drawable/chat_focus_drawer_item_bg"
+            android:drawableStart="@drawable/d_ic_me"
+            android:drawablePadding="12dp"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="Tiyo怎么叫我"
+            android:textColor="@color/d_focus_ink_2"
+            android:textSize="14sp" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_default_focus"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/chat_focus_drawer_item_bg"
+            android:gravity="center_vertical"
+            android:paddingStart="10dp"
+            android:paddingEnd="8dp"
+            android:text="默认进入专注模式"
+            android:textColor="@color/d_focus_ink_2"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/btn_agent_settings"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/chat_focus_drawer_item_bg"
+            android:drawableStart="@drawable/ic_focus_settings"
+            android:drawablePadding="12dp"
+            android:gravity="center_vertical"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="设置"
+            android:textColor="@color/d_focus_ink_2"
+            android:textSize="14sp" />
+    </LinearLayout>
+</FrameLayout>

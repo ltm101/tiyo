@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Tiyo 设计系统 · 字体与组件样式
+  前缀 d = design。新界面逐步迁移到这里，旧 Tiyo.* 样式保留不动。
+-->
+<resources>
+
+    <!-- ========== 字体层级 ========== -->
+    <style name="dText.Display" parent="">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/d_ink</item>
+        <item name="android:lineSpacingExtra">2dp</item>
+    </style>
+
+    <style name="dText.Title" parent="">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/d_ink</item>
+    </style>
+
+    <style name="dText.Body" parent="">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/d_ink_2</item>
+        <item name="android:lineSpacingExtra">2dp</item>
+    </style>
+
+    <style name="dText.Caption" parent="">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/d_ink_3</item>
+    </style>
+
+    <style name="dText.Label" parent="">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/d_ink_3</item>
+        <item name="android:letterSpacing">0.03</item>
+    </style>
+
+    <!-- ========== 卡片 ========== -->
+    <style name="dCard" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/d_card_bg</item>
+        <item name="android:elevation">@dimen/d_elevation_card</item>
+        <item name="android:padding">@dimen/d_card_padding</item>
+    </style>
+
+    <style name="dSectionTitle" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">4dp</item>
+        <item name="android:layout_marginEnd">4dp</item>
+        <item name="android:layout_marginBottom">@dimen/d_space_sm</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/d_ink</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <!-- ========== 导航胶囊 ========== -->
+    <style name="dNavPill" parent="">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_margin">3dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+    </style>
+
+    <style name="dNavPillActive" parent="dNavPill">
+        <item name="android:background">@drawable/d_pill_active_bg</item>
+    </style>
+
+    <!-- ========== 按钮 ========== -->
+    <style name="dButton.Primary" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/d_button_height</item>
+        <item name="android:minWidth">120dp</item>
+        <item name="android:background">@drawable/d_btn_primary_bg</item>
+        <item name="android:elevation">1dp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingStart">20dp</item>
+        <item name="android:paddingEnd">20dp</item>
+        <item name="android:textColor">@color/d_ink_on_accent</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="dButton.Ghost" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/d_button_height</item>
+        <item name="android:minWidth">120dp</item>
+        <item name="android:background">@drawable/d_btn_ghost_bg</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingStart">20dp</item>
+        <item name="android:paddingEnd">20dp</item>
+        <item name="android:textColor">@color/d_ink_2</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <!-- ========== 快捷指令 chip ========== -->
+    <style name="dChip" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">34dp</item>
+        <item name="android:background">@drawable/d_chip_bg</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingStart">14dp</item>
+        <item name="android:paddingEnd">14dp</item>
+        <item name="android:textColor">@color/d_ink_2</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <!-- ========== 徽标 ========== -->
+    <style name="dBadge" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/d_badge_bg</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingEnd">10dp</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:textColor">@color/d_accent_deep</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+
+</resources>

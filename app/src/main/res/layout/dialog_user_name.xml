@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/tiyo_panel_bg"
+    android:orientation="vertical"
+    android:paddingStart="24dp"
+    android:paddingTop="24dp"
+    android:paddingEnd="24dp"
+    android:paddingBottom="20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:text="Tiyo怎么叫你"
+        android:textColor="@color/tiyo_ink"
+        android:textSize="20sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="今天页和以后聊天里的称呼都会一起更换"
+        android:textColor="@color/tiyo_muted"
+        android:textSize="13sp" />
+
+    <EditText
+        android:id="@+id/user_name_input"
+        style="@style/Tiyo.AgentField"
+        android:layout_marginTop="18dp"
+        android:hint="你喜欢的称呼"
+        android:imeOptions="actionDone"
+        android:inputType="textPersonName"
+        android:maxLength="20"
+        android:maxLines="1"
+        android:selectAllOnFocus="true" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/user_name_cancel"
+            android:layout_width="72dp"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:text="取消"
+            android:textColor="@color/tiyo_muted"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/user_name_save"
+            android:layout_width="96dp"
+            android:layout_height="44dp"
+            android:background="@drawable/chat_send_bg"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:text="保存称呼"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+</LinearLayout>

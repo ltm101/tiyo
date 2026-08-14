@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 时刻流单行：时间点 + Tiyo第一人称的一句话 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingTop="@dimen/d_space_sm"
+    android:paddingBottom="@dimen/d_space_sm">
+
+    <TextView
+        android:id="@+id/moment_time"
+        style="@style/dText.Caption"
+        android:layout_width="52dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:text="" />
+
+    <View
+        android:id="@+id/moment_dot"
+        android:layout_width="6dp"
+        android:layout_height="6dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="@dimen/d_space_sm"
+        android:background="@drawable/d_badge_bg" />
+
+    <TextView
+        android:id="@+id/moment_text"
+        style="@style/dText.Body"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="@color/d_ink"
+        android:text="" />
+</LinearLayout>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Tiyo 设计系统 · 语义颜色 token（暖暗色）
+  暗色不是纯黑反转，而是带奶油暖底的深棕灰，保持 Tiyo 的暖调身份。
+  与 values/design_colors.xml 一一对应。
+-->
+<resources>
+    <!-- 背景 / 表面 -->
+    <color name="d_canvas">#17130F</color>
+    <color name="d_surface">#221C16</color>
+    <color name="d_surface_alt">#2A231C</color>
+    <color name="d_surface_overlay">#2E261E</color>
+
+    <!-- 文字 -->
+    <color name="d_ink">#F5F0EA</color>
+    <color name="d_ink_2">#C7BDB1</color>
+    <color name="d_ink_3">#8E8479</color>
+    <color name="d_ink_on_accent">#1A0F0A</color>
+
+    <!-- 强调（珊瑚，暗色下更亮一档） -->
+    <color name="d_accent">#FF7657</color>
+    <color name="d_accent_soft">#3A241D</color>
+    <color name="d_accent_deep">#FF9278</color>
+    <color name="d_accent_alt">#C25A41</color>
+
+    <!-- 线条 / 分隔 -->
+    <color name="d_line">#332B23</color>
+    <color name="d_line_strong">#40362C</color>
+
+    <!-- 状态 -->
+    <color name="d_pos">#7BA589</color>
+    <color name="d_warn">#C98F4A</color>
+    <color name="d_neg">#D07060</color>
+    <color name="d_info">#8AA8C4</color>
+
+    <!-- 覆盖 / 阴影 -->
+    <color name="d_scrim">#0C0906</color>
+    <color name="d_shadow">#000000</color>
+
+    <!-- 专注模式保持统一的纸页视觉，不随系统夜间模式反相 -->
+    <color name="d_focus_canvas">#F7F3ED</color>
+    <color name="d_focus_surface">#FFFDF9</color>
+    <color name="d_focus_surface_alt">#EFE8DF</color>
+    <color name="d_focus_ink">#2F2924</color>
+    <color name="d_focus_ink_2">#6F655B</color>
+    <color name="d_focus_ink_3">#9B9085</color>
+    <color name="d_focus_on_accent">#FFFFFF</color>
+    <color name="d_focus_accent">#DD6B4D</color>
+    <color name="d_focus_accent_pressed">#C7583D</color>
+    <color name="d_focus_line">#DED5CA</color>
+    <color name="d_focus_shadow">#4A382C</color>
+    <color name="d_focus_scrim">#6B5547</color>
+</resources>

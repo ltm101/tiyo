@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 添加任务对话框：内容 + 可选时间 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/d_space_xl"
+    android:paddingEnd="@dimen/d_space_xl"
+    android:paddingTop="@dimen/d_space_lg">
+
+    <EditText
+        android:id="@+id/task_input_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="要做点什么？"
+        android:inputType="text"
+        android:maxLines="2"
+        android:textSize="15sp" />
+
+    <EditText
+        android:id="@+id/task_input_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/d_space_md"
+        android:hint="时间（可选，如 14:00）"
+        android:inputType="text"
+        android:maxLines="1"
+        android:textSize="15sp" />
+</LinearLayout>
