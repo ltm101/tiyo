@@ -87,7 +87,7 @@ object CompanionBirthEngine {
     private fun generateIdentityAnchorBlocking(context: Context, companionId: String): Result {
         val profile = CompanionProfileStore.find(context, companionId)
             ?: error("没有找到这个角色草稿")
-        require(!profile.isBuiltInCompanion) { "默认Tiyo不会被重新生成" }
+        require(!profile.isBuiltInCompanion) { "内置可又不会被重新生成" }
         val certificate = CompanionBirthCertificateStore.load(context, companionId)
             ?: error("角色出生证草稿不存在")
         require(certificate.references.isNotEmpty()) { "请先选择参考图" }

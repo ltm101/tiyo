@@ -52,7 +52,7 @@ class KoyoFrameView @JvmOverloads constructor(
     private val startTime = System.currentTimeMillis()
     private var lastInteractionAt = System.currentTimeMillis()
 
-    /** 点击Tiyo的回调(聊天页/今天页用来做互动) */
+    /** 点击可又的回调(聊天页/今天页用来做互动) */
     var onKoyoTap: (() -> Unit)? = null
 
     /** 点击后短暂播放的反应动作,播完回原动作 */

@@ -13,7 +13,7 @@ import android.widget.ImageView
 import android.widget.Toast
 
 /**
- * 首次启动弹窗：Tiyo开心表情 + 两步收集。
+ * 首次启动弹窗：可又开心表情 + 两步收集。
  * 第一步选年龄段（决定人格应对与表情包频率），第二步输称呼。
  * 必填，点击外面不关闭，确定后回调 [onConfirm]。
  */
@@ -36,7 +36,7 @@ class WelcomeDialog(
         dialog.setCancelable(false)
         dialog.setCanceledOnTouchOutside(false)
 
-        // 顶部放一张Tiyo开心表情
+        // 顶部放一张可又开心表情
         content.findViewById<ImageView>(R.id.welcome_avatar)?.let { avatar ->
             try {
                 context.assets.open("frames/koyo_happy_1.png").use { input ->

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 聊天头像设置：Tiyo头像（内置帧选一）+ 我的头像（相册） -->
+<!-- 聊天头像设置：可又头像（内置帧选一）+ 我的头像（相册） -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -51,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/d_space_xl"
-            android:text="Tiyo的头像" />
+            android:text="可又的头像" />
 
         <LinearLayout
             style="@style/dCard"

@@ -32,7 +32,7 @@ object TiyoMemorySyncClient {
         token: String
     ): SyncResult {
         if (!scope.isBuiltInCompanion) {
-            return SyncResult(false, 0, "${scope.displayName}使用独立本地记忆，不读取Tiyo的电脑记忆")
+            return SyncResult(false, 0, "${scope.displayName}使用独立本地记忆，不读取可又的电脑记忆")
         }
         val connection = try {
             URL("${gatewayUrl.trimEnd('/')}/tiyo/memory/sync")
@@ -109,7 +109,7 @@ object TiyoMemorySyncClient {
         token: String
     ): ExportResult {
         if (!scope.isBuiltInCompanion) {
-            return ExportResult(false, 0, "${scope.displayName}使用独立本地记忆，不读取Tiyo的电脑记忆")
+            return ExportResult(false, 0, "${scope.displayName}使用独立本地记忆，不读取可又的电脑记忆")
         }
         val revision = TiyoMemoryBridge.readExportRevision(context, scope)
         val connection = try {

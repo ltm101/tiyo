@@ -11,13 +11,13 @@ class CompanionProfileRulesTest {
     fun builtInKoyoIsAlwaysReadyAndImmutable() {
         val koyo = CompanionProfileRules.defaultCompanion(100L)
 
-        assertEquals("tiyo", koyo.id)
-        assertEquals("Tiyo", koyo.displayName)
+        assertEquals("koyo", koyo.id)
+        assertEquals("可又", koyo.displayName)
         assertEquals(CompanionStatus.READY, koyo.status)
         assertTrue(CompanionProfileRules.canActivate(koyo))
         assertFalse(CompanionProfileRules.canMutate(koyo))
         assertFalse(CompanionProfileRules.canDelete(koyo))
-        assertFalse(CompanionProfileRules.canUseCustomName("Tiyo"))
+        assertFalse(CompanionProfileRules.canUseCustomName("可又"))
         assertTrue(CompanionProfileRules.canUseCustomName("小满"))
     }
 
@@ -38,12 +38,13 @@ class CompanionProfileRulesTest {
 
     @Test
     fun customSessionNamespaceCannotCollideWithKoyo() {
+        assertEquals("tiyo_sessions", CompanionWorkspace.sessionsPrefsName("koyo"))
         assertEquals("tiyo_sessions", CompanionWorkspace.sessionsPrefsName("tiyo"))
         assertEquals(
             "tiyo_sessions_companion-demo",
             CompanionWorkspace.sessionsPrefsName("../Companion Demo")
         )
-        assertEquals("tts_voice", CompanionScope.of("tiyo", "Tiyo").namespaced("tts_voice"))
+        assertEquals("tts_voice", CompanionScope.of("koyo", "可又").namespaced("tts_voice"))
         assertEquals(
             "tts_voice_companion-demo",
             CompanionScope.of("../Companion Demo", "小满").namespaced("tts_voice")
@@ -56,6 +57,18 @@ class CompanionProfileRulesTest {
 
         assertEquals(1, parsed.size)
         assertTrue(parsed.single().isBuiltInCompanion)
+    }
+
+    @Test
+    fun profileParserMigratesPreReleaseTiyoGuideToKoyo() {
+        val parsed = CompanionProfileStore.parseProfiles(
+            """[{"id":"tiyo","display_name":"Tiyo","origin":"builtin","status":"ready","created_at":42}]"""
+        )
+
+        assertEquals(1, parsed.size)
+        assertEquals("koyo", parsed.single().id)
+        assertEquals("可又", parsed.single().displayName)
+        assertEquals(42L, parsed.single().createdAt)
     }
 
     @Test

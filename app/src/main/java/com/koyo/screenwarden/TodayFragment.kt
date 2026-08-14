@@ -38,7 +38,7 @@ import java.util.Locale
  * Today 页 v2（样本融合版）：tiyo 的关系页。
  *
  * 结构：小问候 → 宠物 Hero → 天气行卡 → 双数据卡（步数/屏幕）
- * → 今日任务（本地待办）→ tiyo 建议 → Tiyo的时刻 → 权限引导卡。
+ * → 今日任务（本地待办）→ tiyo 建议 → 可又的时刻 → 权限引导卡。
  *
  * 保留原 HomeFragment 的前台查邮件逻辑（vivo 上 WorkManager 会被延迟，
  * 打开 App 时主动查一次 IMAP，60 秒冷却），不能丢。
@@ -48,7 +48,7 @@ class TodayFragment : Fragment(R.layout.fragment_today) {
     private lateinit var greetingText: TextView
     private lateinit var detailText: TextView
     private lateinit var dateText: TextView
-    /** Tiyo的占位槽（她本人挂在 Activity 上，只是跟着这个槽的位置走） */
+    /** 可又的占位槽（她本人挂在 Activity 上，只是跟着这个槽的位置走） */
     private var catSlot: android.view.View? = null
     private var chatInvite: TextView? = null
     private lateinit var weatherCard: View
@@ -106,7 +106,7 @@ class TodayFragment : Fragment(R.layout.fragment_today) {
             showAutoReplyHistory()
         }
 
-        // Tiyo本人在 MainActivity 的 dock 上,这里只把占位槽交给她跟随。
+        // 可又本人在 MainActivity 的 dock 上,这里只把占位槽交给她跟随。
         // 点击进聊天的推屏转场由 MainActivity.onKoyoTapped 处理。
         (activity as? MainActivity)?.koyo?.setHeroSlot(catSlot)
 
@@ -166,9 +166,9 @@ class TodayFragment : Fragment(R.layout.fragment_today) {
         if (checkUsagePerm()) checkMailAndReport()
     }
 
-    // ---------- Tiyo帮你回：追溯 ----------
+    // ---------- 可又帮你回：追溯 ----------
 
-    /** 弹窗展示"Tiyo帮你回"的拟写历史，点一条可复制那条回复 */
+    /** 弹窗展示"可又帮你回"的拟写历史，点一条可复制那条回复 */
     private fun showAutoReplyHistory() {
         val ctx = context ?: return
         val records = AutoReplyHistory.load(ctx)

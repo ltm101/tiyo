@@ -6,7 +6,7 @@ import java.util.Locale
  * A companion is more than an avatar. Every profile owns an isolated persona,
  * chat registry, memory namespace and visual asset pack.
  *
- * The built-in Tiyo guide is immutable and always available as a safe fallback.
+ * Koyo is Tiyo's immutable built-in guide and is always available as a safe fallback.
  */
 data class CompanionProfile(
     val id: String,
@@ -48,8 +48,9 @@ enum class CompanionStatus(val key: String) {
 
 object CompanionProfileRules {
     const val SCHEMA_VERSION = 1
-    const val DEFAULT_COMPANION_ID = "tiyo"
-    const val DEFAULT_COMPANION_NAME = "Tiyo"
+    const val DEFAULT_COMPANION_ID = "koyo"
+    const val DEFAULT_COMPANION_NAME = "可又"
+    private const val LEGACY_DEFAULT_COMPANION_ID = "tiyo"
     const val DEFAULT_VISUAL_STYLE = "tiyo_illustrated_2d"
     const val MAX_NAME_LENGTH = 16
     private const val MAX_ID_LENGTH = 48
@@ -75,7 +76,8 @@ object CompanionProfileRules {
             .replace(Regex("-+"), "-")
             .trim('-', '_')
             .take(MAX_ID_LENGTH)
-        return normalized.ifBlank { "companion" }
+        val safeId = normalized.ifBlank { "companion" }
+        return if (safeId == LEGACY_DEFAULT_COMPANION_ID) DEFAULT_COMPANION_ID else safeId
     }
 
     fun canActivate(profile: CompanionProfile): Boolean =

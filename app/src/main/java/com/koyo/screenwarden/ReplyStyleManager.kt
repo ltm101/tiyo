@@ -2,7 +2,7 @@ package com.koyo.screenwarden
 
 import android.content.Context
 
-/** 回复性格描述存储：默认Tiyo口吻，用户可自定义，可一键克隆。 */
+/** 回复性格描述存储：默认可又口吻，用户可自定义，可一键克隆。 */
 object ReplyStyleManager {
 
     private const val PREFS = "tiyo_reply_style"

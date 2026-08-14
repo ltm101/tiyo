@@ -8,7 +8,7 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 /**
- * 微信回复拟写器：收到新微信消息时，用 Provider（deepseek）以Tiyo口吻
+ * 微信回复拟写器：收到新微信消息时，用 Provider（deepseek）以可又口吻
  * 代用户拟一条简短回复。失败 / 未配置 / 超时返回 null，调用方静默处理。
  *
  * 与 ProactiveTextGenerator 的区别：那是"对用户说关心的话"，

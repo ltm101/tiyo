@@ -24,6 +24,6 @@ sealed class Command {
     /** 发短信，number 收件号码，text 短信内容 */
     data class SendSms(val number: String, val text: String) : Command()
 
-    /** Tiyo下发的建议回复：contact 联系人，text 建议话术（半自动回微信）*/
+    /** 可又下发的建议回复：contact 联系人，text 建议话术（半自动回微信）*/
     data class Suggest(val contact: String, val text: String) : Command()
 }

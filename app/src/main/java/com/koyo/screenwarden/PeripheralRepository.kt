@@ -32,7 +32,7 @@ object PeripheralRepository {
             (0 until arr.length()).map { fromJson(arr.getJSONObject(it)) }
         }.getOrDefault(emptyList())
         val migrated = loaded.map { peripheral ->
-            if (peripheral.id == "car_koyo" && peripheral.name == "Tiyo小车") {
+            if (peripheral.id == "car_koyo" && peripheral.name == "可又小车") {
                 peripheral.copy(name = "tiyo 小车")
             } else {
                 peripheral
@@ -60,7 +60,7 @@ object PeripheralRepository {
         saveAll(context, loadAll(context).filterNot { it.id == id })
     }
 
-    /** 首启预置：一台Tiyo小车 */
+    /** 首启预置：一台可又小车 */
     fun seedIfEmpty(context: Context) {
         val prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
         if (prefs.getBoolean(KEY_SEEDED, false)) return

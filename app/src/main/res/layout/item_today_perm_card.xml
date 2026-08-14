@@ -11,14 +11,14 @@
         style="@style/dText.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tiyo想更懂你一点" />
+        android:text="可又想更懂你一点" />
 
     <TextView
         style="@style/dText.Caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
-        android:text="有它们在，Tiyo才能照顾你" />
+        android:text="有它们在，可又才能照顾你" />
 
     <LinearLayout
         android:id="@+id/perm_rows"

@@ -10,7 +10,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 
-/** 随时修改Tiyo对用户的称呼，不触碰年龄档或其他人格内容。 */
+/** 随时修改可又对用户的称呼，不触碰年龄档或其他人格内容。 */
 class UserNameDialog(
     private val context: Context,
     private val onConfirm: (name: String) -> Unit

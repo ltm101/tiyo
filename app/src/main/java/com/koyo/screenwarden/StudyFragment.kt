@@ -387,7 +387,7 @@ class StudyFragment : Fragment(R.layout.fragment_study) {
         row.findViewById<TextView>(R.id.chat_message_text).text = display
         row.findViewById<TextView>(R.id.chat_message_time)?.text =
             timeFormatter.format(Date(message.timestamp))
-        // Tiyo气泡头像跟随聊天里选的头像
+        // 可又气泡头像跟随聊天里选的头像
         if (message.role != "user") {
             row.findViewById<android.widget.ImageView>(R.id.chat_avatar)?.let {
                 it.tag = message.role

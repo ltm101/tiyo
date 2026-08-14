@@ -263,7 +263,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="让Tiyo知道你在哪"
+                            android:text="让可又知道你在哪"
                             android:textSize="11sp"
                             android:textColor="#B0A090" />
                     </LinearLayout>
@@ -296,14 +296,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="🤖 Tiyo帮你回"
+                            android:text="🤖 可又帮你回"
                             android:textSize="14sp"
                             android:textColor="#4A3728" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="开启后Tiyo拟好回复弹通知，你点发送"
+                            android:text="开启后可又拟好回复弹通知，你点发送"
                             android:textSize="11sp"
                             android:textColor="#B0A090" />
                     </LinearLayout>
@@ -382,7 +382,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="数据只在你和Tiyo之间流动"
+            android:text="数据只在你和可又之间流动"
             android:textSize="11sp"
             android:textColor="#D8CFC0" />
 

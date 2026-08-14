@@ -12,7 +12,9 @@ The companion ID scopes:
 - avatar selection and generated asset packs
 - relationship and collaboration state
 
-The neutral built-in profile uses ID `tiyo`. Custom profiles use normalized IDs and do not inherit built-in relationship history.
+The built-in Koyo guide uses ID `koyo`; the legacy pre-release ID `tiyo` migrates to it. Tiyo is the product rather than a companion identity. Custom profiles use normalized IDs and do not inherit Koyo's relationship history or private memory.
+
+Koyo's public guide knowledge lives in `KoyoGuide`. It covers Tiyo setup and troubleshooting without owner-specific biography or relationship history. The companion studio keeps Koyo visible even while a custom companion is active, and collaboration prompts may pass only her public guide brief to a Koyo participant.
 
 ## Agent path
 

@@ -141,7 +141,7 @@ class CompanionStudioFragment : Fragment(R.layout.fragment_companion_studio) {
             return
         }
         if (!CompanionProfileRules.canUseCustomName(name)) {
-            Toast.makeText(requireContext(), "“Tiyo”留给引导角色，换一个只属于新角色的名字", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), "“可又”留给 Tiyo 引导者，换一个只属于新角色的名字", Toast.LENGTH_LONG).show()
             return
         }
         val consent = when (root.findViewById<RadioGroup>(R.id.companion_consent_group).checkedRadioButtonId) {
@@ -376,7 +376,7 @@ class CompanionStudioFragment : Fragment(R.layout.fragment_companion_studio) {
         val profiles = CompanionProfileStore.profiles(ctx)
         val activeId = CompanionProfileStore.activeId(ctx)
         view?.findViewById<TextView>(R.id.companion_koyo_state)?.text =
-            if (activeId == CompanionProfileRules.DEFAULT_COMPANION_ID) "正在使用" else "可随时回到引导角色"
+            if (activeId == CompanionProfileRules.DEFAULT_COMPANION_ID) "正在使用" else "随时可以回来找可又"
         renderProfileRows(profiles.filterNot(CompanionProfile::isBuiltInCompanion))
 
         val selected = selectedCompanionId?.let { CompanionProfileStore.find(ctx, it) }

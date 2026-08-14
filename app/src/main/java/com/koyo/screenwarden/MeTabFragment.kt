@@ -44,7 +44,7 @@ class MeTabFragment : Fragment() {
         view.findViewById<View>(R.id.me_row_mail).setOnClickListener { openChild(MailSettingsFragment()) }
         view.findViewById<View>(R.id.me_row_help).setOnClickListener { openChild(HelpFragment()) }
 
-        // 资料头头像跟随聊天里选的Tiyo头像
+        // 资料头头像跟随聊天里选的可又头像
         view.findViewById<ImageView>(R.id.me_avatar)?.let { bindKoyoAvatar(it) }
         bindCompanionIdentity(view)
 

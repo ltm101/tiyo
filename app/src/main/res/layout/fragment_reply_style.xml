@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="收到消息时，Tiyo按这里的要求帮你拟回复"
+            android:text="收到消息时，可又按这里的要求帮你拟回复"
             android:textColor="@color/d_ink_3" />
 
         <!-- 性格描述 -->

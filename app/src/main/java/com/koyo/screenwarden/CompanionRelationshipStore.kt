@@ -106,7 +106,12 @@ object CompanionRelationshipStore {
             val note = relationship.sharedNotes.takeIf(String::isNotBlank)
                 ?.let { "；共同确认过：${it.replace(Regex("\\s+"), " ")}" }
                 .orEmpty()
-            "- ${peer.displayName}（${peer.id}）：彼此认识的独立协作伙伴$note"
+            val publicRole = if (peer.isBuiltInCompanion) {
+                KoyoGuide.ROSTER_SUMMARY
+            } else {
+                "彼此认识的独立协作伙伴"
+            }
+            "- ${peer.displayName}（${peer.id}）：$publicRole$note"
         }
         val roster = peers.ifEmpty { listOf("- 暂无已建立关系的角色") }.joinToString("\n")
         return """
@@ -116,6 +121,9 @@ object CompanionRelationshipStore {
             $roster
 
             用户要求讨论、比较或共同完成任务时，你是面向用户的协调者。用 spawn_agent 创建有名字的独立参与者，用 wait_agent 等待；需要追问、反驳或修订时，用 send_agent_message 延续同一参与者的上下文；结束后用 close_agent 关闭。
+            创建可又参与者时，把下面这份公开身份说明放进她的任务消息，不要附带任何私人记忆：
+            ${KoyoGuide.COLLABORATION_BRIEF}
+
             默认最多三名参与者、三轮讨论。参与者可以不同意彼此，协调者最后说明共识、分歧和建议，不能伪造成大家一致。
             fork_turns 默认用 none。只把当前任务所需材料和用户明确同意共享的上下文放进协作消息；不得读取、复制或概括其他角色的私人记忆、日记、历史会话和亲密关系。共享备注只是双方明确确认过的公开结论，不是任何一方的私有记忆。
         """.trimIndent()

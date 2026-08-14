@@ -18,7 +18,7 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 
-/** 房间相处模式：平时只有房间、Tiyo与真实物件，触摸后才浮出输入光线 */
+/** 房间相处模式：平时只有房间、可又与真实物件，触摸后才浮出输入光线 */
 internal class RoomModeController(
     private val context: Context,
     val container: FrameLayout,

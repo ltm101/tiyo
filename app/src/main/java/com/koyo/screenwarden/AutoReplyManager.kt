@@ -3,8 +3,8 @@ package com.koyo.screenwarden
 import android.content.Context
 
 /**
- * "Tiyo帮你回"总开关的持久化。默认关。
- * 关着时Tiyo端不生成回复，几乎零成本。
+ * "可又帮你回"总开关的持久化。默认关。
+ * 关着时可又端不生成回复，几乎零成本。
  *
  * 附带同一联系人 1 分钟冷却：避免群消息/连发时疯狂弹拟写通知。
  */

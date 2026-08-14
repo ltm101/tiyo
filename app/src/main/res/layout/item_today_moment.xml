@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 时刻流单行：时间点 + Tiyo第一人称的一句话 -->
+<!-- 时刻流单行：时间点 + 可又第一人称的一句话 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

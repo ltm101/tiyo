@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="设定手机Tiyo的性格，并同步手机与电脑的记忆" />
+            android:text="设定手机可又的性格，并同步手机与电脑的记忆" />
 
         <!-- 年龄段切换 -->
         <TextView
@@ -64,7 +64,7 @@
                 style="@style/dText.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tiyo的说话方式和表情包频率会跟着年龄调整，点一下就会把对应人格填进来" />
+                android:text="可又的说话方式和表情包频率会跟着年龄调整，点一下就会把对应人格填进来" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -149,7 +149,7 @@
                 style="@style/dText.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="这段文字会写入 /sdcard/Tiyo/TIYO.md，Tiyo下次会话自动读取" />
+                android:text="这段文字会写入 /sdcard/Tiyo/TIYO.md，可又下次会话自动读取" />
 
             <EditText
                 android:id="@+id/persona_edit"
@@ -158,7 +158,7 @@
                 android:layout_marginTop="@dimen/d_space_sm"
                 android:background="@drawable/d_chip_bg"
                 android:gravity="top|start"
-                android:hint="像写 CLAUDE.md 一样描述你想让Tiyo成为的样子"
+                android:hint="像写 CLAUDE.md 一样描述你想让可又成为的样子"
                 android:importantForAutofill="no"
                 android:inputType="textMultiLine"
                 android:minHeight="180dp"

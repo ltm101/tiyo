@@ -1,7 +1,7 @@
 package com.koyo.screenwarden
 
 /**
- * 预置驱动注册表。内置 car_koyo（Tiyo小车）。
+ * 预置驱动注册表。内置 car_koyo（可又小车）。
  *
  * custom 驱动由用户在控制页录入 driver 描述（JSON），本期由调用方
  * （PeripheralRepository）持久化后也按 id 查，注册表只提供统一查询入口。

@@ -106,7 +106,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/d_space_2xl"
             android:gravity="center"
-            android:text="Tiyo还没记下什么。去和Tiyo聊聊天吧"
+            android:text="可又还没记下什么。去和可又聊聊天吧"
             android:textColor="@color/d_ink_3"
             android:visibility="gone" />
 

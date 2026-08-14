@@ -53,7 +53,7 @@ object MemoryShelfCoordinator {
             .build()
         val request = OneTimeWorkRequestBuilder<MemoryShelfSettlementWorker>()
             .setInputData(input)
-            // 留一点时间让Tiyo的晚安回复也进入同一份会话历史
+            // 留一点时间让可又的晚安回复也进入同一份会话历史
             .setInitialDelay(20, TimeUnit.SECONDS)
             .addTag(scope.namespaced("memory_shelf_settlement"))
             .build()

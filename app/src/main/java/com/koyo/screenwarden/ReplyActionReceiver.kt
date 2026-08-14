@@ -9,7 +9,7 @@ import android.widget.Toast
 
 /**
  * 处理建议回复通知的按钮：
- * - 「复制」：把Tiyo拟的话放进剪贴板
+ * - 「复制」：把可又拟的话放进剪贴板
  * - 「复制并打开」：复制 + 拉起对应 App（微信/QQ）
  */
 class ReplyActionReceiver : BroadcastReceiver() {

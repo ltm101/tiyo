@@ -4,7 +4,7 @@ package com.koyo.screenwarden
  * Today 页文案引擎：问候语 + "此刻"状态行。
  *
  * 全部本地模板生成，不依赖 Agent（Provider 未配置时也要活）。
- * 语气对齐Tiyo：短、稳、不撒娇、不堆数字。
+ * 语气对齐可又：短、稳、不撒娇、不堆数字。
  * Agent 接通后可在同一入口替换为模型生成，调用方无感。
  */
 object GreetingComposer {

@@ -144,7 +144,7 @@ class ChatFragment : Fragment(R.layout.fragment_chat), TiyoAgentClient.Listener 
     private var lastAssistantRow: View? = null
     private val maxSentenceChars = 60
     private val maxSentenceCount = 12
-    /** Tiyo本体在 Activity 上,这里只是取个引用用来切说话状态 */
+    /** 可又本体在 Activity 上,这里只是取个引用用来切说话状态 */
     private val koyoDock: com.koyo.screenwarden.live2d.KoyoDock?
         get() = (activity as? MainActivity)?.koyo
     private var agentClient: TiyoAgentClient? = null
@@ -352,7 +352,7 @@ class ChatFragment : Fragment(R.layout.fragment_chat), TiyoAgentClient.Listener 
         attachmentList = view.findViewById(R.id.chat_attachment_list)
         attachmentHint = view.findViewById(R.id.chat_attachment_hint)
 
-        // 专注档顶栏只保留Tiyo头像，头像本身就是会话侧栏入口
+        // 专注档顶栏只保留可又头像，头像本身就是会话侧栏入口
         bindAvatar(view.findViewById(R.id.chat_header_avatar), "assistant")
         view.findViewById<View>(R.id.btn_chat_drawer).setOnClickListener { openFocusDrawer() }
 
@@ -475,7 +475,7 @@ class ChatFragment : Fragment(R.layout.fragment_chat), TiyoAgentClient.Listener 
             startStatusPolling()
             refreshProactiveBubbles()
         }
-        // Tiyo的启停由 MainActivity 的 dock 按当前页面统一管,这里不插手
+        // 可又的启停由 MainActivity 的 dock 按当前页面统一管,这里不插手
     }
 
     /** 把选中主题应用到聊天页根背景（view 未创建时安全跳过） */
@@ -696,7 +696,7 @@ class ChatFragment : Fragment(R.layout.fragment_chat), TiyoAgentClient.Listener 
     }
 
     /**
-     * Tiyo本体在 MainActivity 的 KoyoDock 里,聊天页只做两件事:
+     * 可又本体在 MainActivity 的 KoyoDock 里,聊天页只做两件事:
      * 1. 告诉她输入区有多高,让她正好趴在输入框上沿
      * 2. 把收起按钮接到 dock 上
      */
@@ -1437,7 +1437,7 @@ class ChatFragment : Fragment(R.layout.fragment_chat), TiyoAgentClient.Listener 
             .show()
     }
 
-    /** 图片菜单：发给Tiyo（agent 原生识图）or 改图 */
+    /** 图片菜单：发给可又（agent 原生识图）or 改图 */
     private fun showImageActions(b64: String) {
         AlertDialog.Builder(requireContext())
             .setTitle("这张图片")
@@ -1744,7 +1744,7 @@ class ChatFragment : Fragment(R.layout.fragment_chat), TiyoAgentClient.Listener 
                     // 手机 agent 写入记忆时，转成候选事件加入待同步队列
                     if (event.optString("tool_name") == "memory_write") {
                         val args = event.optJSONObject("arguments") ?: JSONObject()
-                        // 面向用户：本地直接落盘，让"Tiyo的时刻"时间线能读到（不依赖电脑同步）
+                        // 面向用户：本地直接落盘，让"可又的时刻"时间线能读到（不依赖电脑同步）
                         TiyoMemoryBridge.saveLocalMemory(requireContext(), companionScope, args)
                         // 保留电脑同步候选（配了网关的旧通道，不影响本地闭环）
                         TiyoMemoryBridge.enqueueMemoryWrite(requireContext(), companionScope, args)
@@ -2404,7 +2404,7 @@ class ChatFragment : Fragment(R.layout.fragment_chat), TiyoAgentClient.Listener 
         setBubblePlaying(false)
     }
 
-    /** 在最后一条Tiyo气泡上显示/隐藏「正在说…」状态。 */
+    /** 在最后一条可又气泡上显示/隐藏「正在说…」状态。 */
     private fun setBubblePlaying(playing: Boolean) {
         val row = lastAssistantRow ?: return
         val label = row.findViewById<TextView>(R.id.chat_message_playing) ?: return
@@ -3100,7 +3100,7 @@ class ChatFragment : Fragment(R.layout.fragment_chat), TiyoAgentClient.Listener 
         return row
     }
 
-    /** 外部（如主动消息 Worker）注入一条Tiyo气泡：立即渲染并持久化，下次 loadHistory 也会显示 */
+    /** 外部（如主动消息 Worker）注入一条可又气泡：立即渲染并持久化，下次 loadHistory 也会显示 */
     fun exposeAssistantBubble(text: String) {
         if (!isAdded || view == null) return
         addMessage("assistant", text, persist = true)
@@ -3126,7 +3126,7 @@ class ChatFragment : Fragment(R.layout.fragment_chat), TiyoAgentClient.Listener 
         }
     }
 
-    /** 头像绑定：用户 → 相册图或默认；Tiyo → 自定义图或所选内置帧 */
+    /** 头像绑定：用户 → 相册图或默认；可又 → 自定义图或所选内置帧 */
     private fun bindAvatar(avatar: android.widget.ImageView, role: String) {
         if (role == "user") {
             val bmp = AvatarStore.loadUserBitmap(requireContext())
@@ -3230,7 +3230,7 @@ class ChatFragment : Fragment(R.layout.fragment_chat), TiyoAgentClient.Listener 
         }
         row.findViewById<android.widget.TextView>(R.id.chat_message_time)?.text =
             timeFormatter.format(Date(System.currentTimeMillis()))
-        // 头像跟随当前选的Tiyo头像
+        // 头像跟随当前选的可又头像
         row.findViewById<android.widget.ImageView>(R.id.chat_avatar)
             ?.let { bindAvatar(it, "assistant") }
         messagesContainer.addView(row)

@@ -106,7 +106,7 @@ object TiyoMemoryBridge {
 
     /**
      * 面向用户的本地记忆落盘：把 memory_write 参数直接写成标准 frontmatter md，
-     * 落到 files/tiyo-agent/memory/，让"Tiyo的时刻"时间线能读到。
+     * 落到 files/tiyo-agent/memory/，让"可又的时刻"时间线能读到。
      * 手机本地原生闭环，不依赖电脑同步；与 Rust 记忆同名去重（本目录先被扫描）。
      */
     fun saveLocalMemory(context: Context, arguments: JSONObject) {
@@ -227,7 +227,7 @@ object TiyoMemoryBridge {
         val md = buildString {
             append("---\n")
             append("name: ").append(SNAPSHOT_NAME).append('\n')
-            append("description: 电脑端Tiyo的共享记忆快照，来自 KoyoGateway 同步\n")
+            append("description: 电脑端可又的共享记忆快照，来自 KoyoGateway 同步\n")
             append("type: reference\n")
             append("created: ").append(now).append('\n')
             append("updated: ").append(now).append('\n')
@@ -345,7 +345,7 @@ object TiyoMemoryBridge {
             if (!scope.isBuiltInCompanion) {
                 append("\n\n## 独立记忆空间\n\n")
                 append("你是${scope.displayName}，只使用这个角色目录下的本地记忆与会话。\n")
-                append("不要读取、冒领或推测Tiyo及其他角色的私人记忆、日记和历史会话。\n")
+                append("不要读取、冒领或推测可又及其他角色的私人记忆、日记和历史会话。\n")
                 append("需要回忆时先浏览本工作区 `memory/`，只把与你和用户真实发生过的内容当作共同经历。")
                 return@buildString
             }

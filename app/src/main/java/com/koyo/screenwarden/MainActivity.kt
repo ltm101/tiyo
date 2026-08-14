@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
     private var currentFragment: Fragment? = null
 
     /**
-     * Tiyo本人。挂在 rootLayout 上而不是任何 Fragment 里,
+     * 可又本人。挂在 rootLayout 上而不是任何 Fragment 里,
      * 这样切页时她是移动过去的,动画不断、状态不丢。
      */
     // 用可空而不是 lateinit:isInitialized 只能在同类内用,别的页面判不了
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         private set
     /** 用户手动收起了模型,收起状态下切页不再自动把她放出来 */
     private var koyoCollapsed = false
-    /** 聊天抽屉展开时，Tiyo临时从输入框移到右侧边缘 */
+    /** 聊天抽屉展开时，可又临时从输入框移到右侧边缘 */
     private var chatDrawerOpen = false
     /** 记录当前页是否从聊天侧栏进入，供系统返回键无界面地回聊天 */
     private var enteredFromChat = false
@@ -119,7 +119,7 @@ class MainActivity : AppCompatActivity() {
         rootLayout.setBackgroundColor(ThemeManager.DEFAULT_BG_COLOR)
         applyTheme()
 
-        // Tiyo要盖在页面内容之上、覆盖层之下,所以在 overlayContainer 之前插入
+        // 可又要盖在页面内容之上、覆盖层之下,所以在 overlayContainer 之前插入
         val dock = com.koyo.screenwarden.live2d.KoyoDock(rootLayout)
         rootLayout.removeView(dock.view)
         rootLayout.addView(dock.view, rootLayout.indexOfChild(overlayContainer))
@@ -227,7 +227,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    /** 按当前页面把Tiyo挪到对应停靠位 */
+    /** 按当前页面把可又挪到对应停靠位 */
     private fun syncKoyoDock(animate: Boolean = true) {
         val dock = koyo ?: return
         if (koyoCollapsed) {
@@ -246,7 +246,7 @@ class MainActivity : AppCompatActivity() {
         if (currentFragment === chatFragment) syncKoyoDock(animate)
     }
 
-    /** 点Tiyo:今天页 -> 推屏进聊天;其它页 -> 直接进聊天 */
+    /** 点可又:今天页 -> 推屏进聊天;其它页 -> 直接进聊天 */
     private fun onKoyoTapped() {
         val dock = koyo
         if (currentFragment === chatFragment && chatDrawerOpen) {

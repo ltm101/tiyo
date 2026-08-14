@@ -11,7 +11,7 @@ import java.util.Calendar
  * 主动消息状态机（care-chain 手机版）。
  *
  * 由 UsageReportWorker 每小时调用 evaluateAndSend()：满足门控 + 命中触发条件时，
- * 用 Provider LLM 生成一句Tiyo语气的关心文案，持久化进活跃会话（聊天界面气泡），
+ * 用 Provider LLM 生成一句可又语气的关心文案，持久化进活跃会话（聊天界面气泡），
  * 并做频率控制（24h≤3 条、连续未回复退避、静默时段不打扰）。
  */
 object ProactiveMessenger {

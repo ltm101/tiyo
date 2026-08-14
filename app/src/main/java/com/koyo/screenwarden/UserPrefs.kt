@@ -12,7 +12,7 @@ object UserPrefs {
     private const val KEY_ONBOARDED = "onboarded"
     private const val KEY_AGE_GROUP = "age_group"
 
-    /** 年龄段档位。决定Tiyo的人格应对、表情包频率与文字大小等。 */
+    /** 年龄段档位。决定可又的人格应对、表情包频率与文字大小等。 */
     enum class AgeGroup(val key: String, val label: String) {
         CHILD("child", "0-15岁"),
         YOUTH("youth", "16-30岁"),

@@ -52,7 +52,7 @@ object EmailSender {
 
     /**
      * 将 tiyo 实时状态保存为草稿，覆盖旧的草稿。
-     * Tiyo通过 [check_tiyo_mail.py --draft] 随时读取。
+     * 可又通过 [check_tiyo_mail.py --draft] 随时读取。
      */
     suspend fun saveDraft(stateText: String): Result<Unit> {
         if (!MailConfig.isMailReady() || !MailConfig.isAgentReady()) {

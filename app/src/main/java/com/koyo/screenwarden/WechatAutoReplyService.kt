@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 /**
  * 无障碍：两条路。
  * 1) 收通知事件（TYPE_NOTIFICATION_STATE_CHANGED）：vivo 拦截 NotificationListenerService
- *    的通知派发时，用无障碍通道收微信/QQ 通知，触发Tiyo帮你回拟写 + 弹回复通知。
+ *    的通知派发时，用无障碍通道收微信/QQ 通知，触发可又帮你回拟写 + 弹回复通知。
  *    无障碍事件是系统辅助能力，微信无法隐藏、vivo 也拦不掉，普通用户开无障碍权限即可。
  * 2) 自动填回复（骨架，微信对无障碍隐藏节点树，暂未启用）。
  */
@@ -28,7 +28,7 @@ class WechatAutoReplyService : AccessibilityService() {
 
     override fun onAccessibilityEvent(event: AccessibilityEvent) {
         companionCapture.onAccessibilityEvent(event)
-        // 通知事件：vivo 上Tiyo帮你回的兜底通道
+        // 通知事件：vivo 上可又帮你回的兜底通道
         if (event.eventType == AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED) {
             handleNotificationEvent(event)
             return
@@ -48,7 +48,7 @@ class WechatAutoReplyService : AccessibilityService() {
         )
     }
 
-    /** 无障碍收通知：提取微信/QQ 通知 → 触发Tiyo帮你回拟写 + 弹回复通知 */
+    /** 无障碍收通知：提取微信/QQ 通知 → 触发可又帮你回拟写 + 弹回复通知 */
     private fun handleNotificationEvent(event: AccessibilityEvent) {
         try {
             val pkg = event.packageName?.toString() ?: return

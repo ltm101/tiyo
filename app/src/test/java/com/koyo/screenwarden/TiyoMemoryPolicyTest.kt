@@ -12,10 +12,13 @@ class TiyoMemoryPolicyTest {
 
     @Test
     fun companionScopeNormalizesIdentityAndKeepsBuiltInNamespace() {
-        val builtIn = CompanionScope.of("TIYO", "Tiyo")
+        val builtIn = CompanionScope.of("KOYO", "可又")
+        val migratedLegacy = CompanionScope.of("TIYO", "Tiyo")
         val custom = CompanionScope.of("../Tian", " 天 ")
 
         assertEquals("tiyo_memory", builtIn.namespaced("tiyo_memory"))
+        assertEquals("koyo", migratedLegacy.companionId)
+        assertEquals("tiyo_memory", migratedLegacy.namespaced("tiyo_memory"))
         assertEquals("tian", custom.companionId)
         assertEquals("天", custom.displayName)
         assertEquals("tiyo_memory_tian", custom.namespaced("tiyo_memory"))

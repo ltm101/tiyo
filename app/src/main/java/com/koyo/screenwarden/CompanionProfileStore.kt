@@ -161,13 +161,22 @@ object CompanionProfileStore {
                 for (index in 0 until array.length()) {
                     val item = array.optJSONObject(index) ?: continue
                     val id = CompanionProfileRules.normalizeId(item.optString("id"))
-                    val name = CompanionProfileRules.normalizeName(item.optString("display_name"))
+                    val origin = CompanionOrigin.fromKey(item.optString("origin"))
+                    val storedName = CompanionProfileRules.normalizeName(item.optString("display_name"))
+                    val name = if (
+                        id == CompanionProfileRules.DEFAULT_COMPANION_ID &&
+                        origin == CompanionOrigin.BUILTIN
+                    ) {
+                        CompanionProfileRules.DEFAULT_COMPANION_NAME
+                    } else {
+                        storedName
+                    }
                     if (name.isBlank()) continue
                     add(
                         CompanionProfile(
                             id = id,
                             displayName = name,
-                            origin = CompanionOrigin.fromKey(item.optString("origin")),
+                            origin = origin,
                             status = CompanionStatus.fromKey(item.optString("status")),
                             createdAt = item.optLong("created_at"),
                             updatedAt = item.optLong("updated_at"),

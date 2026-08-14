@@ -8,7 +8,7 @@ This repository is the public edition. It has an independent Git history and app
 
 ## What is included
 
-- A neutral built-in guide named **Tiyo**
+- **Koyo (可又)** as the built-in Tiyo guide, with public product knowledge and no private biography
 - Custom companion creation with a birth certificate and generated 2D asset pack
 - Per-companion persona, chat, avatar, asset, and memory namespaces
 - Explicit collaboration rules between independent companions
@@ -29,7 +29,7 @@ The public edition intentionally excludes:
 - the large optional Termux bootstrap archive
 - private handoff notes, debug captures, and local-only tools
 
-The remaining `com.koyo.screenwarden` Kotlin namespace and a few `koyo_*` internal resource/protocol names are legacy implementation identifiers. They are not the public default identity and are not used to inject a private persona into custom companions.
+Koyo in this repository is a clean public guide identity. She knows how Tiyo's role creation, model setup, image understanding, memory isolation, permissions, collaboration, and troubleshooting are intended to work. The private application's Koyo relationship, owner-specific biography, memories, portraits, and conversation history are not included. The `com.koyo.screenwarden` namespace and some `koyo_*` resource/protocol names are retained implementation identifiers.
 
 ## Requirements
 
@@ -74,9 +74,9 @@ Image understanding uses the currently active provider. Select a model that acce
 
 ## Companion isolation
 
-Each custom companion receives its own stable ID and storage namespace. Persona files, session history, generated assets, local memories, and relationship state are resolved through that identity. A custom companion does not inherit Tiyo's relationship or another companion's private history.
+Each custom companion receives its own stable ID and storage namespace. Persona files, session history, generated assets, local memories, and relationship state are resolved through that identity. A custom companion does not inherit Koyo's relationship or another companion's private history. Tiyo is the application; Koyo is its built-in guide; a custom companion is the user's independent primary companion.
 
-When the user explicitly starts a multi-companion discussion, collaboration context should contain only the current task and the roles' public positions. Private diaries and unrelated history stay isolated.
+Koyo remains selectable from the companion studio and can join a multi-companion discussion as a product guide. Collaboration context contains only the current task, Koyo's public guide brief, and the roles' public positions. Private diaries and unrelated history stay isolated.
 
 See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the data flow and [docs/OPEN_SOURCE_BOUNDARY.md](docs/OPEN_SOURCE_BOUNDARY.md) for the release boundary.
 

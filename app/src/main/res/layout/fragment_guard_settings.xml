@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="这些权限让Tiyo能照顾你，数据只在你和Tiyo之间流动" />
+            android:text="这些权限让可又能照顾你，数据只在你和可又之间流动" />
 
         <!-- 基础权限 -->
         <TextView
@@ -255,7 +255,7 @@
                         style="@style/dText.Caption"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="让Tiyo知道你在哪" />
+                        android:text="让可又知道你在哪" />
                 </LinearLayout>
 
                 <androidx.appcompat.widget.SwitchCompat
@@ -287,14 +287,14 @@
                         style="@style/dText.Body"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tiyo帮你回"
+                        android:text="可又帮你回"
                         android:textColor="@color/d_ink" />
 
                     <TextView
                         style="@style/dText.Caption"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="开启后Tiyo拟好回复弹通知，你点发送" />
+                        android:text="开启后可又拟好回复弹通知，你点发送" />
                 </LinearLayout>
 
                 <androidx.appcompat.widget.SwitchCompat

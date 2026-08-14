@@ -5,7 +5,7 @@ The public edition is created from a clean repository with no shared Git history
 ## Public
 
 - Android source and resources required to build the alpha app
-- neutral Tiyo built-in guide
+- public Koyo built-in guide with Tiyo product knowledge
 - custom companion identity, memory, collaboration, and asset-pack logic
 - native arm64 agent binary plus corresponding Rust source
 - Vosk small Chinese model and license notice
@@ -13,7 +13,7 @@ The public edition is created from a clean repository with no shared Git history
 
 ## Not public
 
-- private Koyo persona, relationship, biography, diary, memory database, and conversation history
+- owner-specific Koyo relationship, biography, diary, memory database, conversation history, and private persona extensions
 - personal names and owner-specific onboarding/model presets
 - private API/mail/TTS/image credentials or signing material
 - private portraits, stickers, generated rooms, debug captures, and handoff notes

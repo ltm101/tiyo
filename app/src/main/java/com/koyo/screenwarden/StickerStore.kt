@@ -7,7 +7,7 @@ import org.json.JSONObject
 import java.io.File
 
 /**
- * Tiyo表情包：
+ * 可又表情包：
  * - 内置：assets/stickers 下的像素风表情包，文件名即语义（如「晚安.png」）
  * - 用户库：filesDir/stickers，用户自行导入，优先于内置同名
  * - 标签：每个表情包可打多个标签（用途 + 场景），存 SharedPreferences，喂给 AI 选图更准
@@ -99,7 +99,7 @@ object StickerStore {
             return runCatching { BitmapFactory.decodeFile(generatedFile.absolutePath) }.getOrNull()
         }
         if (!scope.isBuiltInCompanion) return null
-        // 内置 fallback 只属于内置Tiyo，自创角色绝不借用她的表情
+        // 内置 fallback 只属于内置可又，自创角色绝不借用她的表情
         return try {
             context.assets.open("stickers/$name.png").use { input ->
                 BitmapFactory.decodeStream(input)

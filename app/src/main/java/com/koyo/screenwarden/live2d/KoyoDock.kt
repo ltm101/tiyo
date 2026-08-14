@@ -8,7 +8,7 @@ import android.view.animation.DecelerateInterpolator
 import android.widget.FrameLayout
 
 /**
- * Tiyo的停靠控制器。
+ * 可又的停靠控制器。
  *
  * 她是挂在 Activity 根布局上的**一个**视图,不属于任何 Fragment,
  * 所以切页时她能连续动、能从今天页一路"走"到聊天页,不会被重建。

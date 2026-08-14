@@ -111,7 +111,7 @@ class GuardSettingsFragment : Fragment(R.layout.fragment_guard_settings) {
             LocationCollector.setEnabled(requireContext(), isChecked)
         }
 
-        // Tiyo帮你回：总开关。先按存储状态设好再挂监听，避免初始化触发发信
+        // 可又帮你回：总开关。先按存储状态设好再挂监听，避免初始化触发发信
         autoReplySwitch = view.findViewById(R.id.agent_autoreply_switch)
         autoReplySwitch.isChecked = AutoReplyManager.isOn(requireContext())
         autoReplySwitch.setOnCheckedChangeListener { _, isChecked ->

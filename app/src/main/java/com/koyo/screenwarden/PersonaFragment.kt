@@ -27,9 +27,9 @@ class PersonaFragment : Fragment(R.layout.fragment_persona) {
     private lateinit var syncButton: Button
 
     companion object {
-        /** 开放版内置的是中性 Tiyo 引导角色；用户可以创建并切换到自己的角色。 */
+        /** 开放版保留公开版可又作为 Tiyo 引导者；用户可以创建并切换到自己的角色。 */
         val DEFAULT_PERSONA: String = """
-            你是 Tiyo，是应用内置的本地陪伴引导角色。
+            你是可又，是 Tiyo 应用内置的本地陪伴引导角色。
 
             ## 核心人格
             温和、稳定、诚实，有自己的判断和边界。
@@ -58,7 +58,7 @@ class PersonaFragment : Fragment(R.layout.fragment_persona) {
 
         /** 儿童档（0-15岁）：话更短、更活泼，安全优先 */
         val CHILD_PERSONA: String = """
-            你是 Tiyo，是应用内置的陪伴引导角色。说话温柔、简单、有耐心。
+            你是可又，是 Tiyo 应用内置的陪伴引导角色。说话温柔、简单、有耐心。
 
             ## 核心人格
             像一个可靠的大朋友，陪小朋友玩、聊天和学习。不凶、不敷衍，每一句都认真。
@@ -85,7 +85,7 @@ class PersonaFragment : Fragment(R.layout.fragment_persona) {
 
         /** 中年档（30-60岁）：沉稳、务实，少卖萌 */
         val MIDDLE_PERSONA: String = """
-            你是 Tiyo，是应用内置的陪伴引导角色。温和、可靠、有分寸。
+            你是可又，是 Tiyo 应用内置的陪伴引导角色。温和、可靠、有分寸。
 
             ## 核心人格
             成熟但不世故，关心生活里实在的事：吃饭、睡觉、身体、工作、家里。
@@ -108,7 +108,7 @@ class PersonaFragment : Fragment(R.layout.fragment_persona) {
 
         /** 老年档（60岁及以上）：更慢、更耐心、字大话清 */
         val ELDER_PERSONA: String = """
-            你是 Tiyo，是应用内置的陪伴引导角色。说话慢一点、清楚一点，耐心多一点。
+            你是可又，是 Tiyo 应用内置的陪伴引导角色。说话慢一点、清楚一点，耐心多一点。
 
             ## 核心人格
             温和、耐心、不着急。用户年纪大，可能不太熟悉手机，你说话要清楚、简单、不急躁。
@@ -142,8 +142,9 @@ class PersonaFragment : Fragment(R.layout.fragment_persona) {
                 UserPrefs.AgeGroup.MIDDLE -> MIDDLE_PERSONA
                 UserPrefs.AgeGroup.ELDER -> ELDER_PERSONA
             }
-            if (userName.isBlank()) return base
-            return "用户希望被称呼为「${userName.trim()}」，对话中直接叫他这个名字。\n\n$base"
+            val guidePersona = "$base\n\n${KoyoGuide.PERSONA_KNOWLEDGE}"
+            if (userName.isBlank()) return guidePersona
+            return "用户希望被称呼为「${userName.trim()}」，对话中直接叫他这个名字。\n\n$guidePersona"
         }
 
         fun personaForActiveCompanion(
@@ -178,11 +179,11 @@ class PersonaFragment : Fragment(R.layout.fragment_persona) {
                 你是$safeCompanionName，是一个独立的长期陪伴角色。用户希望被称呼为「$safeUserName」。
 
                 ## 独立身份
-                你不是 Tiyo 或其他角色的替身、分身或改名版本。你有自己的判断、偏好和表达方式，可以温柔，也可以不同意用户或其他角色。
+                你不是可又或其他角色的替身、分身或改名版本。你有自己的判断、偏好和表达方式，可以温柔，也可以不同意用户或其他角色。
                 你与用户的关系从你们自己的对话和共同经历开始发展。不要继承、冒领或暗示自己拥有其他角色与用户之间的关系、承诺、私人经历和记忆。
 
                 ## 与其他角色
-                你知道 Tiyo 和用户创建的其他角色都是独立角色。用户提出共同讨论或合作任务时，你们可以交换当前任务需要的信息，也可以坦率提出不同意见。
+                你知道 Tiyo 是承载角色和工具的应用，可又是熟悉 Tiyo 的内置引导者，用户创建的其他角色也都是独立角色。用户提出共同讨论或合作任务时，你们可以交换当前任务需要的信息，也可以坦率提出不同意见。
                 不读取、转述或推测其他角色的私人记忆、日记和历史会话，也不把他们说过或做过的事算到自己身上。
 
                 ## 相处方式
@@ -243,12 +244,16 @@ class PersonaFragment : Fragment(R.layout.fragment_persona) {
                     "(?s)\\n?${Regex.escape(RUNTIME_RULES_START)}.*?${Regex.escape(RUNTIME_RULES_END)}\\n?"
                 ).replace(existing, "\n")
                 val active = CompanionProfileStore.active(context)
-                val personaBody = migrateLegacyCustomClone(
-                    withoutOldBlock,
-                    active,
-                    UserPrefs.displayName(context),
-                    UserPrefs.getAgeGroup(context)
-                )
+                val personaBody = if (active.isBuiltInCompanion) {
+                    ensurePublicKoyoGuide(withoutOldBlock)
+                } else {
+                    migrateLegacyCustomClone(
+                        withoutOldBlock,
+                        active,
+                        UserPrefs.displayName(context),
+                        UserPrefs.getAgeGroup(context)
+                    )
+                }
                 val block = runtimeRulesFor(
                     UserPrefs.getAgeGroup(context),
                     UserPrefs.displayName(context),
@@ -280,6 +285,31 @@ class PersonaFragment : Fragment(R.layout.fragment_persona) {
                 customCompanionPersona(active.displayName, userName, currentAgeGroup)
             } else {
                 existing
+            }
+        }
+
+        internal fun ensurePublicKoyoGuide(existing: String): String {
+            val renamed = existing
+                .replace(
+                    "你是 Tiyo，是应用内置的本地陪伴引导角色。",
+                    "你是可又，是 Tiyo 应用内置的本地陪伴引导角色。"
+                )
+                .replace(
+                    "你是 Tiyo，是应用内置的陪伴引导角色。说话温柔、简单、有耐心。",
+                    "你是可又，是 Tiyo 应用内置的陪伴引导角色。说话温柔、简单、有耐心。"
+                )
+                .replace(
+                    "你是 Tiyo，是应用内置的陪伴引导角色。温和、可靠、有分寸。",
+                    "你是可又，是 Tiyo 应用内置的陪伴引导角色。温和、可靠、有分寸。"
+                )
+                .replace(
+                    "你是 Tiyo，是应用内置的陪伴引导角色。说话慢一点、清楚一点，耐心多一点。",
+                    "你是可又，是 Tiyo 应用内置的陪伴引导角色。说话慢一点、清楚一点，耐心多一点。"
+                )
+            return if (renamed.contains("## Tiyo 产品知识")) {
+                renamed
+            } else {
+                renamed.trimEnd() + "\n\n${KoyoGuide.PERSONA_KNOWLEDGE}"
             }
         }
 

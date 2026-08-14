@@ -43,7 +43,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Tiyo 只负责引导，新角色拥有独立的名字、人格、聊天、记忆和视觉资源" />
+            android:tag="tiyo_keep_builtin_name"
+            android:text="可又负责带你认识和设置 Tiyo，新角色拥有独立的名字、人格、聊天、记忆和视觉资源" />
 
         <TextView
             style="@style/dSectionTitle"
@@ -63,13 +64,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:tag="tiyo_keep_builtin_name">
 
                 <ImageView
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:background="@drawable/d_avatar_bg"
-                    android:contentDescription="Tiyo 引导角色"
+                    android:contentDescription="可又 · Tiyo 引导者"
                     android:padding="2dp"
                     android:scaleType="centerCrop"
                     android:src="@mipmap/ic_launcher" />
@@ -85,7 +87,7 @@
                         style="@style/dText.Body"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tiyo"
+                        android:text="可又"
                         android:textColor="@color/d_ink" />
 
                     <TextView
@@ -93,7 +95,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
-                        android:text="引导角色 · 随时可恢复" />
+                        android:text="Tiyo 引导者 · 随时可以找她" />
                 </LinearLayout>
 
                 <TextView

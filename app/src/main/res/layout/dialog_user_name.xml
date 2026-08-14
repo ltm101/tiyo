@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-medium"
-        android:text="Tiyo怎么叫你"
+        android:text="可又怎么叫你"
         android:textColor="@color/tiyo_ink"
         android:textSize="20sp" />
 

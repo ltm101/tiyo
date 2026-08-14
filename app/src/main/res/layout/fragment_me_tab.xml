@@ -34,7 +34,7 @@
                     android:layout_width="52dp"
                     android:layout_height="52dp"
                     android:background="@drawable/d_avatar_bg"
-                    android:contentDescription="Tiyo"
+                    android:contentDescription="可又"
                     android:padding="2dp"
                     android:scaleType="centerCrop"
             android:src="@mipmap/ic_launcher" />
@@ -51,7 +51,7 @@
                         style="@style/dText.Title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tiyo" />
+                        android:text="可又" />
 
                     <TextView
                         android:id="@+id/me_companion_subtitle"
@@ -202,13 +202,13 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- Tiyo -->
+            <!-- 可又 -->
             <TextView
                 style="@style/dSectionTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/d_space_xl"
-                android:text="Tiyo" />
+                android:text="可又" />
 
             <LinearLayout
                 style="@style/dCard"

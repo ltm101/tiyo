@@ -9,7 +9,7 @@ import java.net.URL
 /**
  * 主动消息文案生成器。
  *
- * 优先用 Provider（deepseek，OpenAI 兼容）直接 HTTP 生成 1-3 句Tiyo语气的关心，
+ * 优先用 Provider（deepseek，OpenAI 兼容）直接 HTTP 生成 1-3 句可又语气的关心，
  * 失败 / 未配置 / 超时时回退调用方给的规则兜底文案。
  *
  * 为什么不用 Worker 直连本地 agent：TiyoAgentClient 是面向 UI 的 WebSocket 会话，

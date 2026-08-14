@@ -8,6 +8,8 @@ import android.widget.TextView
 
 /** Rebinds built-in-role labels to the active companion at the UI edge. */
 object CompanionUiText {
+    const val KEEP_BUILTIN_NAME_TAG = "tiyo_keep_builtin_name"
+
     fun replace(context: Context, value: CharSequence?): CharSequence? {
         val text = value?.toString() ?: return null
         val name = CompanionProfileStore.activeName(context)
@@ -17,6 +19,7 @@ object CompanionUiText {
     }
 
     fun applyRecursively(context: Context, root: View) {
+        if (root.tag == KEEP_BUILTIN_NAME_TAG) return
         root.contentDescription = replace(context, root.contentDescription)
         if (root is TextView) {
             if (root !is EditText) root.text = replace(context, root.text)

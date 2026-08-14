@@ -14,7 +14,7 @@
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:layout_gravity="center_horizontal"
-        android:contentDescription="Tiyo"
+        android:contentDescription="可又"
         android:scaleType="fitCenter" />
 
     <TextView
@@ -23,7 +23,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="14dp"
         android:fontFamily="sans-serif-medium"
-        android:text="你好，我是Tiyo"
+        android:text="你好，我是可又"
         android:textColor="@color/tiyo_ink"
         android:textSize="21sp" />
 
@@ -131,7 +131,7 @@
             android:id="@+id/welcome_name_input"
             style="@style/Tiyo.AgentField"
             android:layout_marginTop="16dp"
-            android:hint="告诉Tiyo你的秘密吧！"
+            android:hint="告诉可又你的秘密吧！"
             android:inputType="text"
             android:maxLines="1"
             android:imeOptions="actionDone" />

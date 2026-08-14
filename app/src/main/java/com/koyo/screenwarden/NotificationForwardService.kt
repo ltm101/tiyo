@@ -105,7 +105,7 @@ class NotificationForwardService : NotificationListenerService() {
             }
             Log.i(TAG, "notification forwarded pkg=$pkg")
 
-            // Tiyo帮你回：微信/QQ 新消息自动拟写回复（开关打开 + 目标App + 联系人冷却通过）
+            // 可又帮你回：微信/QQ 新消息自动拟写回复（开关打开 + 目标App + 联系人冷却通过）
             friendshipIdentity?.takeIf { canSuggest }?.let { identity ->
                 val contact = identity.displayName
                 val message = text

@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="导入你自己的表情包，给它起个名字、打上标签，Tiyo聊天时就能用上" />
+            android:text="导入你自己的表情包，给它起个名字、打上标签，可又聊天时就能用上" />
 
         <Button
             android:id="@+id/sticker_import_btn"
@@ -116,7 +116,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/d_space_lg"
-            android:text="点表情包可以给标签补充场景，比如「哄人」「庆祝」。标签越多，Tiyo选得越准" />
+            android:text="点表情包可以给标签补充场景，比如「哄人」「庆祝」。标签越多，可又选得越准" />
 
     </LinearLayout>
 </ScrollView>

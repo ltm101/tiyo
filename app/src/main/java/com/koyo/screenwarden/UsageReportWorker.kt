@@ -41,7 +41,7 @@ class UsageReportWorker(context: Context, params: WorkerParameters) :
             // 事件化入口：步数里程碑、App 限额逼近和小时兜底心跳。
             UsageEventEmitter.emit(ctx, screenReport, steps)
 
-            // ── 实时状态草稿（Tiyo随时查） ──
+            // ── 实时状态草稿（可又随时查） ──
             val loc = LocationCollector.getCurrentLocation(ctx)
             val stateText = buildStateText(screenReport, weather, steps, batteryPct, LocationCollector.format(loc))
             EmailSender.saveDraft(stateText)

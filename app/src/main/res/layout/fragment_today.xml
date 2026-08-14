@@ -2,7 +2,7 @@
 <!--
   Today 页 v2（样本融合版）：
   小问候 → 宠物 Hero → 天气行卡 → 双数据卡 → 今日任务 → tiyo 建议
-  → Tiyo的时刻 → 权限引导卡。下拉拉宠物由 TodayScrollView 驱动。
+  → 可又的时刻 → 权限引导卡。下拉拉宠物由 TodayScrollView 驱动。
 -->
 <com.koyo.screenwarden.TodayScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/today_scroll"
@@ -61,7 +61,7 @@
             android:visibility="gone" />
 
         <!--
-          宠物 Hero 占位槽。Tiyo本人挂在 MainActivity 上（KoyoDock），
+          宠物 Hero 占位槽。可又本人挂在 MainActivity 上（KoyoDock），
           这里只留一个同尺寸的空 View 把版面撑开、并告诉她该站在哪。
           这样切页时她是移动过去的，动画不会断。
         -->
@@ -235,18 +235,18 @@
                 android:layout_height="52dp"
                 android:layout_gravity="bottom|end"
                 android:layout_marginEnd="10dp"
-                android:contentDescription="Tiyo"
+                android:contentDescription="可又"
                 android:src="@mipmap/ic_launcher"
                 android:translationY="10dp" />
         </FrameLayout>
 
-        <!-- Tiyo帮你回：追溯入口 -->
+        <!-- 可又帮你回：追溯入口 -->
         <TextView
             style="@style/dSectionTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/d_space_xl"
-            android:text="Tiyo帮你回" />
+            android:text="可又帮你回" />
 
         <LinearLayout
             android:id="@+id/today_reply_container"
@@ -265,14 +265,14 @@
                 android:textSize="15sp" />
         </LinearLayout>
 
-        <!-- Tiyo的时刻：tiyo 记得的事（差异化核心） -->
+        <!-- 可又的时刻：tiyo 记得的事（差异化核心） -->
         <TextView
             android:id="@+id/today_feed_title"
             style="@style/dSectionTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/d_space_xl"
-            android:text="Tiyo的时刻"
+            android:text="可又的时刻"
             android:visibility="gone" />
 
         <LinearLayout
@@ -294,7 +294,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/d_space_2xl"
-            android:text="数据只在你和Tiyo之间流动" />
+            android:text="数据只在你和可又之间流动" />
 
     </LinearLayout>
 </com.koyo.screenwarden.TodayScrollView>
