@@ -10,7 +10,6 @@ import android.media.MediaPlayer
 import android.graphics.Bitmap
 import android.net.Uri
 import android.util.Base64
-import java.io.ByteArrayOutputStream
 import android.os.Bundle
 import android.content.ContentValues
 import android.os.Build
@@ -1262,15 +1261,15 @@ class ChatFragment : Fragment(R.layout.fragment_chat), TiyoAgentClient.Listener 
 
     /** 拍照也先进入附件条，保留相机回归入口 */
     private fun handlePickedBitmap(bitmap: Bitmap) {
-        val maxDim = 1280
-        val scale = Math.min(1f, maxDim.toFloat() / Math.max(bitmap.width, bitmap.height))
-        val scaled = if (scale < 1f) {
-            Bitmap.createScaledBitmap(bitmap, (bitmap.width * scale).toInt(), (bitmap.height * scale).toInt(), true)
-        } else bitmap
-        val bos = ByteArrayOutputStream()
-        scaled.compress(Bitmap.CompressFormat.JPEG, 80, bos)
-        if (scaled !== bitmap) scaled.recycle()
-        val b64 = Base64.encodeToString(bos.toByteArray(), Base64.NO_WRAP)
+        val b64 = BuiltinVision.bitmapToDataUrl(
+            bitmap,
+            maxDim = 1024,
+            quality = 72,
+            maxBytes = 256 * 1024
+        )?.substringAfter("base64,") ?: run {
+            Toast.makeText(requireContext(), "照片压缩失败，请换一张再试", Toast.LENGTH_SHORT).show()
+            return
+        }
         pendingAttachments += PendingAttachment(
             kind = AttachmentKind.IMAGE,
             name = "拍摄图片.jpg",

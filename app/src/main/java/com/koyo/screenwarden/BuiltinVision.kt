@@ -125,14 +125,19 @@ object BuiltinVision {
         }
     }
 
-    /** Bitmap → 最长边压缩 → JPEG data URL，不落盘 */
-    fun bitmapToDataUrl(bitmap: Bitmap, maxDim: Int = 960, quality: Int = 72): String? {
+    /** Bitmap → 最长边和字节双重压缩 → JPEG data URL，不落盘 */
+    fun bitmapToDataUrl(
+        bitmap: Bitmap,
+        maxDim: Int = 1024,
+        quality: Int = 72,
+        maxBytes: Int = 256 * 1024
+    ): String? {
         return try {
             val w = bitmap.width
             val h = bitmap.height
             if (w <= 0 || h <= 0) return null
             val scale = Math.min(1f, maxDim.toFloat() / Math.max(w, h))
-            val scaled = if (scale < 1f) {
+            var working = if (scale < 1f) {
                 Bitmap.createScaledBitmap(
                     bitmap,
                     (w * scale).toInt().coerceAtLeast(1),
@@ -140,32 +145,45 @@ object BuiltinVision {
                     true
                 )
             } else bitmap
-            val bos = ByteArrayOutputStream()
-            scaled.compress(Bitmap.CompressFormat.JPEG, quality.coerceIn(50, 90), bos)
-            if (scaled !== bitmap) scaled.recycle()
-            "data:image/jpeg;base64," + Base64.encodeToString(bos.toByteArray(), Base64.NO_WRAP)
+            var jpeg = ByteArray(0)
+            var currentQuality = quality.coerceIn(50, 85)
+            for (attempt in 0 until 6) {
+                val bos = ByteArrayOutputStream()
+                working.compress(Bitmap.CompressFormat.JPEG, currentQuality, bos)
+                jpeg = bos.toByteArray()
+                if (jpeg.size <= maxBytes) break
+                if (currentQuality > 52) {
+                    currentQuality = (currentQuality - 6).coerceAtLeast(52)
+                } else if (working.width > 640 || working.height > 640) {
+                    val resized = Bitmap.createScaledBitmap(
+                        working,
+                        (working.width * 0.8f).toInt().coerceAtLeast(1),
+                        (working.height * 0.8f).toInt().coerceAtLeast(1),
+                        true
+                    )
+                    if (working !== bitmap) working.recycle()
+                    working = resized
+                }
+            }
+            if (working !== bitmap) working.recycle()
+            if (jpeg.size > maxBytes) return null
+            "data:image/jpeg;base64," + Base64.encodeToString(jpeg, Base64.NO_WRAP)
         } catch (e: Exception) {
             Log.w(TAG, "bitmap conversion failed: ${e.javaClass.simpleName}")
             null
         }
     }
 
-    /** 读 URI → 最长边压到 1280 → JPEG q80 → data URL，避免图片过大上传超时 */
+    /** 读 URI → 最长边与字节双重压缩，避免网关 413。 */
     private fun loadImageDataUrl(context: Context, uri: Uri): String? {
         return try {
             val bmp = context.contentResolver.openInputStream(uri)
                 ?.use { BitmapFactory.decodeStream(it) } ?: return null
-            val maxDim = 1280
-            val w = bmp.width
-            val h = bmp.height
-            val scale = Math.min(1f, maxDim.toFloat() / Math.max(w, h))
-            val scaled = if (scale < 1f) {
-                Bitmap.createScaledBitmap(bmp, (w * scale).toInt(), (h * scale).toInt(), true)
-            } else bmp
-            val bos = ByteArrayOutputStream()
-            scaled.compress(Bitmap.CompressFormat.JPEG, 80, bos)
-            if (scaled !== bmp) scaled.recycle()
-            "data:image/jpeg;base64," + Base64.encodeToString(bos.toByteArray(), Base64.NO_WRAP)
+            try {
+                bitmapToDataUrl(bmp, maxDim = 1024, quality = 72, maxBytes = 256 * 1024)
+            } finally {
+                bmp.recycle()
+            }
         } catch (e: Exception) {
             Log.w(TAG, "load image failed", e)
             null

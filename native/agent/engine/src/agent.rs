@@ -19,6 +19,12 @@ use std::sync::Arc;
 use std::time::Duration;
 use std::time::Instant;
 
+// Keep requests below common reverse-proxy limits. The provider context window can
+// be much larger than the HTTP gateway's body limit, especially when images are
+// represented as base64 data URLs.
+const PROVIDER_REQUEST_TEXT_TOKEN_BUDGET: u64 = 80_000;
+const PROVIDER_REQUEST_IMAGE_BASE64_BUDGET: usize = 384 * 1024;
+
 #[derive(Debug)]
 pub enum AgentError {
     Provider(anyhow::Error),
@@ -288,17 +294,12 @@ impl Agent {
                 round,
             });
 
-            let mut messages = Vec::with_capacity(session.messages.len() + 1);
-            messages.push(ChatMessage::system(self.system_prompt.clone()));
-            messages.extend(session.messages.iter().cloned());
-            if !self.vision_replay {
-                // 图片降级：请求中剥离工具消息携带的图片（base64），避免上游
-                // 拒绝图片导致整会话反复失败。图片本身仍留在会话记录中，
-                // 前端历史展示与 show_image 预览不受影响。
-                for message in &mut messages {
-                    message.images.clear();
-                }
-            }
+            let messages = provider_messages_with_budget(
+                &self.system_prompt,
+                &session.messages,
+                &tool_specs,
+                self.vision_replay,
+            );
             let request = ModelRequest {
                 model: provider.model().to_string(),
                 messages,
@@ -539,6 +540,60 @@ fn is_context_window_error(error: &anyhow::Error) -> bool {
         || value.contains("context length")
         || value.contains("maximum context")
         || value.contains("too many tokens")
+}
+
+fn provider_messages_with_budget(
+    system_prompt: &str,
+    session_messages: &[ChatMessage],
+    tools: &[crate::ToolSpec],
+    vision_replay: bool,
+) -> Vec<ChatMessage> {
+    let mut history = normalize_history(session_messages);
+    trim_history_to_fit(
+        system_prompt,
+        &mut history,
+        tools,
+        PROVIDER_REQUEST_TEXT_TOKEN_BUDGET,
+    );
+    let mut messages = Vec::with_capacity(history.len() + 1);
+    messages.push(ChatMessage::system(system_prompt.to_owned()));
+    messages.extend(history);
+    if vision_replay {
+        retain_latest_images_within_budget(&mut messages, PROVIDER_REQUEST_IMAGE_BASE64_BUDGET);
+    } else {
+        for message in &mut messages {
+            message.images.clear();
+        }
+    }
+    messages
+}
+
+fn retain_latest_images_within_budget(messages: &mut [ChatMessage], byte_budget: usize) {
+    let latest = messages
+        .iter()
+        .rposition(|message| !message.images.is_empty());
+    for (index, message) in messages.iter_mut().enumerate() {
+        if Some(index) != latest {
+            message.images.clear();
+        }
+    }
+    let Some(index) = latest else {
+        return;
+    };
+    let mut remaining = byte_budget;
+    messages[index].images.retain(|image| {
+        let bytes = image
+            .data
+            .len()
+            .saturating_add(image.media_type.len())
+            .saturating_add(32);
+        if bytes > remaining {
+            false
+        } else {
+            remaining -= bytes;
+            true
+        }
+    });
 }
 
 #[cfg(test)]
@@ -809,5 +864,63 @@ mod tests {
         assert_eq!(state.status, crate::LoopStatus::BudgetLimited);
         assert_eq!(state.tokens_used, 30);
         assert_eq!(state.turns_completed, 1);
+    }
+
+    #[test]
+    fn provider_budget_replays_only_the_latest_image_message() {
+        let mut old = ChatMessage::user("old image");
+        old.images.push(ImageContent {
+            media_type: "image/jpeg".into(),
+            data: "a".repeat(64),
+        });
+        let mut latest = ChatMessage::user("latest image");
+        latest.images.push(ImageContent {
+            media_type: "image/jpeg".into(),
+            data: "b".repeat(64),
+        });
+        let messages = provider_messages_with_budget("system", &[old, latest], &[], true);
+        assert!(
+            messages
+                .iter()
+                .any(|message| { message.content == "latest image" && message.images.len() == 1 })
+        );
+        assert!(
+            messages
+                .iter()
+                .all(|message| { message.content != "old image" || message.images.is_empty() })
+        );
+    }
+
+    #[test]
+    fn provider_budget_drops_an_image_larger_than_the_gateway_budget() {
+        let mut message = ChatMessage::user("small text");
+        message.images.push(ImageContent {
+            media_type: "image/jpeg".into(),
+            data: "x".repeat(PROVIDER_REQUEST_IMAGE_BASE64_BUDGET + 1),
+        });
+        let messages = provider_messages_with_budget("system", &[message], &[], true);
+        assert!(messages.iter().all(|message| message.images.is_empty()));
+        assert!(
+            messages
+                .iter()
+                .any(|message| message.content == "small text")
+        );
+    }
+
+    #[test]
+    fn provider_budget_trims_large_text_history_without_mutating_the_session() {
+        let source = vec![
+            ChatMessage::user("old".repeat(200_000)),
+            ChatMessage::assistant("reply", Vec::new()),
+            ChatMessage::user("latest"),
+        ];
+        let messages = provider_messages_with_budget("system", &source, &[], true);
+        let request_chars = messages
+            .iter()
+            .map(|message| message.content.len())
+            .sum::<usize>();
+        assert!(request_chars < source[0].content.len());
+        assert_eq!(source[0].content.len(), 600_000);
+        assert!(messages.iter().any(|message| message.content == "latest"));
     }
 }
