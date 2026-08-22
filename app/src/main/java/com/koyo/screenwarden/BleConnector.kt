@@ -134,7 +134,17 @@ class BleConnection(
     private val callback = object : BluetoothGattCallback() {
         override fun onConnectionStateChange(g: BluetoothGatt, status: Int, newState: Int) {
             when (newState) {
-                BluetoothProfile.STATE_CONNECTED -> g.discoverServices()
+                BluetoothProfile.STATE_CONNECTED -> {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S &&
+                        context.checkSelfPermission(android.Manifest.permission.BLUETOOTH_CONNECT) !=
+                        android.content.pm.PackageManager.PERMISSION_GRANTED
+                    ) {
+                        listener.onError("缺少蓝牙连接权限")
+                        runCatching { g.close() }
+                    } else {
+                        g.discoverServices()
+                    }
+                }
                 BluetoothProfile.STATE_DISCONNECTED -> listener.onDisconnected()
             }
         }
@@ -194,7 +204,8 @@ class BleConnection(
         return try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 // API 33+ 返回状态码，0 即 BluetoothStatusCodes.SUCCESS
-                g.writeCharacteristic(c, data, BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT) == 0
+                g.writeCharacteristic(c, data, BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT) ==
+                    android.bluetooth.BluetoothStatusCodes.SUCCESS
             } else {
                 @Suppress("DEPRECATION")
                 run {

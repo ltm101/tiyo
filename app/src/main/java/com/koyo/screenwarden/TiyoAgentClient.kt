@@ -32,8 +32,11 @@ class TiyoAgentClient(
     private var sessionId = UUID.randomUUID().toString()
 
     @Volatile private var open = false
+    @Volatile private var supportsExpressionPolicyV1 = false
 
     fun isOpen(): Boolean = open
+
+    fun supportsExpressionPolicy(): Boolean = supportsExpressionPolicyV1
 
     fun connect(
         info: TiyoAgentRuntimeInfo,
@@ -44,6 +47,7 @@ class TiyoAgentClient(
         close()
         runtime = info
         provider = config
+        supportsExpressionPolicyV1 = MindContextCodec.CAPABILITY in info.capabilities
         sessionId = persistedSessionId?.takeIf { it.isNotBlank() } ?: UUID.randomUUID().toString()
         mainHandler.post { listener.onAgentState(false, "正在唤醒 Tiyo Agent") }
 
@@ -68,19 +72,17 @@ class TiyoAgentClient(
     fun currentSessionId(): String = sessionId
 
     fun sendMessage(text: String): Boolean =
-        send(JSONObject().put("command", "send_message").put("text", text))
+        sendMessage(text, emptyList(), null)
 
     /** 带图发送：原图与用户问题一起交给 Agent 的统一视觉路由 */
     fun sendMessageWithImages(text: String, images: List<String>): Boolean =
-        send(
-            JSONObject()
-                .put("command", "send_message")
-                .put("text", text)
-                .put("images", org.json.JSONArray(images))
-        )
+        sendMessage(text, images, null)
+
+    fun sendMessage(text: String, images: List<String>, expressionPolicy: JSONObject?): Boolean =
+        send(MindContextCodec.sendMessagePayload(text, images, expressionPolicy, supportsExpressionPolicyV1))
 
     fun jumpIn(text: String): Boolean =
-        send(JSONObject().put("command", "jump_in").put("text", text))
+        send(MindContextCodec.jumpInPayload(text))
 
     fun setPlanMode(enabled: Boolean): Boolean =
         send(JSONObject().put("command", if (enabled) "enter_plan_mode" else "exit_plan_mode"))

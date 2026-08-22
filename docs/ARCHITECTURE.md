@@ -28,6 +28,22 @@ Conversation updates create scoped extraction jobs. Extracted atomic memories us
 
 Companion isolation is enforced through application-level namespace selection. It does not protect against a malicious modified build or direct filesystem access on a compromised device.
 
+## Presence path
+
+`PresenceAdapter` implementations are transport-only bodies. Feishu, WeCom, QQ Bot, and
+Weixin iLink connect directly from Android through `TiyoPresenceService`; no desktop agent
+or gateway is required. Inbound messages enter `PresenceRouter`, then the same scoped Tiyo
+Agent and memory path used by the app. `PresenceOutboundGate` binds replies to the exact
+inbound event, checks adapter capability and health, and rejects unapproved or duplicate
+outbound traffic. Platform credentials are encrypted with Android Keystore.
+
+## EnuMan private-state boundary
+
+EnuMan snapshots are internal state, not chat content. Android emits only the bounded
+`enuman_expression_v1` behavior policy. The Rust runtime validates its whitelist and injects
+it as ephemeral main-model system context. It is not serialized into session history,
+forwarded to tools or sub-agents, or rendered to the user.
+
 ## Visual path
 
 The public build uses a lightweight frame renderer and generated/custom 2D assets. Live2D code, binaries, and models are not present. A generated companion asset pack is reviewed by the existing quality gate before activation.

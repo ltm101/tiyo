@@ -21,6 +21,9 @@ pub enum MemoryType {
     Feedback,
     Project,
     Reference,
+    Persona,
+    Episodic,
+    Instruction,
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
@@ -458,5 +461,24 @@ mod tests {
                 .search_prompt_context("今天天气", 10, 2_000, true)
                 .is_empty()
         );
+    }
+
+    #[test]
+    fn android_memory_types_roundtrip() {
+        // 与 Android 端 TiyoAtomicMemory 的 TYPE_PERSONA/EPISODIC/INSTRUCTION 对齐的固定样例，
+        // 保证 Kotlin 写出的 type 字符串能被 Rust 正确解析，不会静默跳过。
+        let cases = [
+            ("persona", MemoryType::Persona),
+            ("episodic", MemoryType::Episodic),
+            ("instruction", MemoryType::Instruction),
+        ];
+        for (wire, expected) in cases {
+            let frontmatter = format!(
+                "name: sample\ndescription: 跨语言固定样例\ntype: {wire}\ncreated: 2026-08-15T00:00:00Z\nupdated: 2026-08-15T00:00:00Z\n"
+            );
+            let memory: Memory = serde_yaml::from_str(&frontmatter)
+                .unwrap_or_else(|error| panic!("type={wire} 解析失败: {error}"));
+            assert_eq!(memory.memory_type, expected, "type={wire} 类型不匹配");
+        }
     }
 }

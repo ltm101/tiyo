@@ -30,14 +30,18 @@ object TiyoAgentConfig {
     private const val KEY_IMAGE_GEN_PROVIDER = "image_gen_provider"
     private const val KEY_IMAGE_GEN_BASE_URL = "image_gen_base_url"
     private const val KEY_IMAGE_GEN_MODEL = "image_gen_model"
+    private const val KEY_VISION_DEFAULT_MIGRATED = "vision_default_migrated_v1"
+    private const val LEGACY_DEFAULT_MODEL = "deepseek-v4-flash"
 
     const val PROVIDER_ID = "tiyo"
     const val DEFAULT_BASE_URL = "https://api.deepseek.com/v1"
-    const val DEFAULT_MODEL = "deepseek-v4-flash"
+    val DEFAULT_MODEL: String
+        get() = BuildConfig.TIYO_DEFAULT_MODEL
 
     /** 所有已配置 provider；没有则返回默认 tiyo 一个。 */
     fun loadAll(context: Context): List<TiyoProviderConfig> {
         migrateLegacy(context)
+        migratePersonalVisionDefault(context)
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val raw = prefs.getString(KEY_PROVIDERS, null)
         if (raw.isNullOrBlank()) return listOf(defaultProvider())
@@ -71,6 +75,15 @@ object TiyoAgentConfig {
     fun activeId(context: Context): String {
         return context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
             .getString(KEY_ACTIVE, PROVIDER_ID).orEmpty().ifBlank { PROVIDER_ID }
+    }
+
+    fun supportsVision(model: String): Boolean {
+        val normalized = model.lowercase()
+        return normalized.contains("vision") ||
+            normalized.contains("multimodal") ||
+            Regex("(^|[-_.])vl($|[-_.])").containsMatchIn(normalized) ||
+            normalized.contains("gpt-4o") ||
+            normalized.contains("gemini")
     }
 
     fun setActive(context: Context, id: String): Boolean {
@@ -156,7 +169,7 @@ object TiyoAgentConfig {
             .edit().putString(KEY_IMAGE_GEN_PROVIDER, provider.trim()).apply()
     }
 
-    /** 生图 API 地址（仅 gpt-image 用，留空时使用 OpenAI 官方地址）。 */
+    /** 生图 API 地址（仅 gpt-image 用，默认 OpenAI 官方；可用 4sapi.cn 等中转）。 */
     fun imageGenBaseUrl(context: Context): String =
         context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
             .getString(KEY_IMAGE_GEN_BASE_URL, "").orEmpty().trim()
@@ -243,6 +256,28 @@ object TiyoAgentConfig {
         if (legacyKey.isNotBlank()) {
             TiyoSecureStore.put(context, secretKey(PROVIDER_ID), legacyKey)
         }
+    }
+
+    private fun migratePersonalVisionDefault(context: Context) {
+        if (BuildConfig.FLAVOR != "personal") return
+        val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        if (prefs.getBoolean(KEY_VISION_DEFAULT_MIGRATED, false)) return
+        val raw = prefs.getString(KEY_PROVIDERS, null)
+        if (!raw.isNullOrBlank()) {
+            runCatching {
+                val array = JSONArray(raw)
+                var changed = false
+                for (index in 0 until array.length()) {
+                    val item = array.optJSONObject(index) ?: continue
+                    if (item.optString("id") == PROVIDER_ID && item.optString("model") == LEGACY_DEFAULT_MODEL) {
+                        item.put("model", DEFAULT_MODEL)
+                        changed = true
+                    }
+                }
+                if (changed) prefs.edit().putString(KEY_PROVIDERS, array.toString()).apply()
+            }
+        }
+        prefs.edit().putBoolean(KEY_VISION_DEFAULT_MIGRATED, true).apply()
     }
 
     private fun secretKey(id: String) = "provider_api_key_$id"

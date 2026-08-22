@@ -42,6 +42,7 @@ class MeTabFragment : Fragment() {
         view.findViewById<View>(R.id.me_row_stickers).setOnClickListener { openChild(StickerManagerFragment()) }
         view.findViewById<View>(R.id.me_row_guard).setOnClickListener { openChild(GuardSettingsFragment()) }
         view.findViewById<View>(R.id.me_row_mail).setOnClickListener { openChild(MailSettingsFragment()) }
+        view.findViewById<View>(R.id.me_row_presence).setOnClickListener { openChild(PresenceSettingsFragment()) }
         view.findViewById<View>(R.id.me_row_help).setOnClickListener { openChild(HelpFragment()) }
 
         // 资料头头像跟随聊天里选的可又头像

@@ -160,6 +160,36 @@
                         android:textColor="@color/d_ink_3"
                         android:textSize="20sp" />
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/d_line" />
+
+                <LinearLayout
+                    android:id="@+id/me_row_presence"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/dText.Body"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="接入其他应用"
+                        android:textColor="@color/d_ink" />
+
+                    <TextView
+                        style="@style/dText.Body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="›"
+                        android:textColor="@color/d_ink_3"
+                        android:textSize="20sp" />
+                </LinearLayout>
             </LinearLayout>
 
             <!-- 守护 -->

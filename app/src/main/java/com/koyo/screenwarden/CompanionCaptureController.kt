@@ -115,6 +115,7 @@ class CompanionCaptureController(
         )
     }
 
+    @androidx.annotation.RequiresApi(Build.VERSION_CODES.Q)
     private fun copyScreenshot(buffer: HardwareBuffer, colorSpace: android.graphics.ColorSpace): Bitmap? {
         return try {
             val hardware = Bitmap.wrapHardwareBuffer(buffer, colorSpace) ?: return null

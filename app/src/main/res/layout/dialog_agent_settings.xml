@@ -99,6 +99,19 @@
             android:inputType="text" />
 
         <TextView
+            android:id="@+id/agent_owner_preset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/btn_secondary_bg"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="7dp"
+            android:text="一键填写维护者模型配置"
+            android:textColor="@color/tiyo_accent"
+            android:textSize="12sp"
+            android:visibility="gone" />
+
+        <TextView
             android:id="@+id/agent_vision_preset"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -106,7 +119,8 @@
             android:background="@drawable/btn_secondary_bg"
             android:paddingHorizontal="12dp"
             android:paddingVertical="7dp"
-            android:text="👁 一键填识图模型：Agnes 2.0-flash（免费）"
+            android:minHeight="@dimen/d_touch_target"
+            android:text="一键填识图模型：Agnes 2.0-flash"
             android:textColor="@color/tiyo_accent"
             android:textSize="12sp" />
 
@@ -120,6 +134,42 @@
             style="@style/Tiyo.AgentField"
             android:hint="留空则保留已加密保存的 Key"
             android:inputType="textPassword" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/d_space_sm"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/agent_test_connection"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/d_touch_target"
+                android:layout_weight="1"
+                android:background="@drawable/btn_secondary_bg"
+                android:gravity="center"
+                android:text="测试连接"
+                android:textColor="@color/d_ink_2"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/agent_discover_models"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/d_touch_target"
+                android:layout_marginStart="@dimen/d_space_sm"
+                android:layout_weight="1"
+                android:background="@drawable/btn_secondary_bg"
+                android:gravity="center"
+                android:text="发现模型"
+                android:textColor="@color/d_ink_2"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/agent_connection_status"
+            style="@style/Tiyo.FieldLabel"
+            android:layout_marginTop="@dimen/d_space_sm"
+            android:text="填写配置后可先测试，不会保存改动" />
 
         <TextView
             style="@style/Tiyo.FieldLabel"
@@ -136,7 +186,7 @@
             <RadioButton
                 android:id="@+id/agent_permission_ask"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
+                android:layout_height="@dimen/d_touch_target"
                 android:checked="true"
                 android:fontFamily="sans-serif"
                 android:text="谨慎确认　修改和危险操作先问我"
@@ -146,7 +196,7 @@
             <RadioButton
                 android:id="@+id/agent_permission_auto"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
+                android:layout_height="@dimen/d_touch_target"
                 android:fontFamily="sans-serif"
                 android:text="自动执行　删除操作仍然确认"
                 android:textColor="@color/tiyo_ink_soft"
@@ -155,7 +205,7 @@
             <RadioButton
                 android:id="@+id/agent_permission_full"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
+                android:layout_height="@dimen/d_touch_target"
                 android:fontFamily="sans-serif"
                 android:text="完全授权　只适合明确受控的任务"
                 android:textColor="@color/tiyo_ink_soft"
@@ -188,7 +238,7 @@
             <RadioButton
                 android:id="@+id/agent_img_seedream"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/d_touch_target"
                 android:checked="true"
                 android:fontFamily="sans-serif"
                 android:text="豆包 seedream"
@@ -198,7 +248,7 @@
             <RadioButton
                 android:id="@+id/agent_img_gpt"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/d_touch_target"
                 android:fontFamily="sans-serif"
                 android:text="gpt-image"
                 android:textColor="@color/tiyo_ink_soft"
@@ -207,7 +257,7 @@
             <RadioButton
                 android:id="@+id/agent_img_glm"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/d_touch_target"
                 android:fontFamily="sans-serif"
                 android:text="智谱 GLM（免费）"
                 android:textColor="@color/tiyo_ink_soft"
@@ -216,7 +266,7 @@
             <RadioButton
                 android:id="@+id/agent_img_gemini"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/d_touch_target"
                 android:fontFamily="sans-serif"
                 android:text="Gemini（免费）"
                 android:textColor="@color/tiyo_ink_soft"
@@ -242,7 +292,7 @@
         <EditText
             android:id="@+id/agent_image_gen_base_url"
             style="@style/Tiyo.AgentField"
-                android:hint="https://api.openai.com/v1"
+            android:hint="https://api.openai.com/v1 或 4sapi.cn/v1"
             android:inputType="textUri" />
 
         <TextView
@@ -266,7 +316,7 @@
             <TextView
                 android:id="@+id/agent_settings_cancel"
                 android:layout_width="72dp"
-                android:layout_height="44dp"
+                android:layout_height="@dimen/d_touch_target"
                 android:background="@drawable/chat_secondary_button_bg"
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center"
@@ -277,13 +327,13 @@
             <TextView
                 android:id="@+id/agent_settings_save"
                 android:layout_width="88dp"
-                android:layout_height="44dp"
+                android:layout_height="@dimen/d_touch_target"
                 android:layout_marginStart="9dp"
                 android:background="@drawable/chat_send_bg"
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center"
                 android:text="保存并启动"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/d_ink_on_accent"
                 android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>

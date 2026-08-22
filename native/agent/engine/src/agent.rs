@@ -459,14 +459,21 @@ impl Agent {
         let Some(input_queue) = &self.input_queue else {
             return false;
         };
-        let messages = input_queue.drain();
+        let messages = input_queue.drain_items();
         if messages.is_empty() {
             return false;
         }
         session
             .messages
-            .extend(messages.iter().cloned().map(ChatMessage::user));
-        observer.on_event(&AgentEvent::QueuedInputAccepted(messages));
+            .extend(messages.iter().cloned().flat_map(|queued| {
+            let mut pushed = Vec::new();
+            if let Some(ctx) = queued.mind_context {
+                pushed.push(ChatMessage::internal_user(ctx));
+            }
+            pushed.push(ChatMessage::user(queued.text));
+            pushed
+        }));
+        observer.on_event(&AgentEvent::QueuedInputAccepted(messages.iter().map(|queued| queued.text.clone()).collect()));
         true
     }
 }

@@ -1,4 +1,4 @@
-# Tiyo Open Source
+# Tiyo 1.3.0 Open Source
 
 Tiyo is an experimental Android companion shell that combines a local agent runtime, isolated companion identities, memory, device context, and optional automation in one app.
 
@@ -14,6 +14,9 @@ This repository is the public edition. It has an independent Git history and app
 - Explicit collaboration rules between independent companions
 - An OpenAI-compatible agent provider configuration with bring-your-own-key storage
 - Chat image understanding through the active vision-capable provider
+- Phone-native Feishu, WeCom, QQ Bot, and Weixin iLink Presence adapters
+- One shared companion/persona/memory path across every supported app body
+- EnuMan private-state boundary: internal snapshots never become user-visible chat text
 - Optional image generation, MiniMax TTS, MCP/Skill configuration, and native tools
 - Screen-time, steps, weather, reminders, mail bridge, notifications, and optional BLE peripherals
 - Kotlin unit tests and the Rust source for the bundled arm64 agent binary
@@ -59,6 +62,9 @@ The debug APK is written under `app/build/outputs/apk/debug/`.
 
 Release builds are deliberately unsigned. Keep signing configuration outside Git.
 
+Version 1.3.0 is the first mobile-native Presence release. Platform credentials are
+stored through Android Keystore and are never embedded in this repository.
+
 ## Configure a model
 
 Open the model settings in Tiyo and provide:
@@ -70,7 +76,7 @@ Open the model settings in Tiyo and provide:
 
 The default endpoint is DeepSeek's official API and the default model is `deepseek-v4-flash`. No provider credential is embedded in the APK. Credentials entered in the app are encrypted with an AES-GCM key held by Android Keystore.
 
-Image understanding uses the currently active provider. Select a model that accepts image input before attaching a photo. Image generation has its own optional provider/key fields.
+Image understanding uses the currently active provider. Select a model that accepts image input before attaching a photo. Vision-capable providers receive original images directly; text-only providers use the explicit fallback route. Image generation has its own optional provider/key fields.
 
 ## Companion isolation
 

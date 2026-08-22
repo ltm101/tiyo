@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="presence_qq_sandbox">使用 QQ 沙箱环境</string>
     <string name="nav_today">今天</string>
     <string name="nav_chat">聊天</string>
     <string name="nav_workspace">工作台</string>

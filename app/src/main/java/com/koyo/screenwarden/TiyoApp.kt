@@ -3,7 +3,15 @@ package com.koyo.screenwarden
 import android.app.Application
 import android.content.Context
 import android.util.Log
+import com.koyo.screenwarden.enuman.EnuManRhythmWorker
 import com.koyo.screenwarden.events.ScreenEventReceiver
+import com.koyo.screenwarden.presence.PresenceShortcutPublisher
+import com.koyo.screenwarden.presence.PresenceAdapterRegistry
+import com.koyo.screenwarden.presence.FeishuNativePresenceAdapter
+import com.koyo.screenwarden.presence.QqNativePresenceAdapter
+import com.koyo.screenwarden.presence.TiyoPresenceService
+import com.koyo.screenwarden.presence.WeComNativePresenceAdapter
+import com.koyo.screenwarden.presence.WeixinNativePresenceAdapter
 
 class TiyoApp : Application() {
 
@@ -30,7 +38,15 @@ class TiyoApp : Application() {
         }
 
         ThemeManager.init(this)
+        PresenceShortcutPublisher.publish(this)
+        PresenceAdapterRegistry.register(FeishuNativePresenceAdapter())
+        PresenceAdapterRegistry.register(WeComNativePresenceAdapter())
+        PresenceAdapterRegistry.register(QqNativePresenceAdapter())
+        PresenceAdapterRegistry.register(WeixinNativePresenceAdapter())
+        PresenceAdapterRegistry.startAll(this)
+        TiyoPresenceService.refresh(this)
         ScreenEventReceiver.register(this)
         RealtimeStateWorker.schedule(this)
+        EnuManRhythmWorker.schedule(this)
     }
 }

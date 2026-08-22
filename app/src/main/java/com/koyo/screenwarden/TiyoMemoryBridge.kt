@@ -84,12 +84,26 @@ object TiyoMemoryBridge {
     }
 
     fun enqueueMemoryWrite(context: Context, scope: CompanionScope, arguments: JSONObject) {
+        enqueueMemoryWrite(context, scope, arguments, null)
+    }
+
+    fun enqueueMemoryWrite(
+        context: Context,
+        scope: CompanionScope,
+        arguments: JSONObject,
+        stableEventId: String?
+    ) {
         val content = memoryWriteToContent(scope, arguments)
         if (content.isBlank()) return
         val outbox = readOutbox(context, scope)
+        val eventId = stableEventId?.trim()?.take(120)?.takeIf(String::isNotBlank)
+            ?: UUID.randomUUID().toString()
+        for (index in 0 until outbox.length()) {
+            if (outbox.optJSONObject(index)?.optString("id") == eventId) return
+        }
         outbox.put(
             JSONObject()
-                .put("id", UUID.randomUUID().toString())
+                .put("id", eventId)
                 .put("type", "memory_candidate")
                 .put("createdAt", System.currentTimeMillis())
                 .put("content", content.take(MAX_EVENT_CHARS))

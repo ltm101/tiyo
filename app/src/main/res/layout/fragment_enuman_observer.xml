@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/d_canvas"
+    android:clipToPadding="false"
+    android:fillViewport="true"
+    android:overScrollMode="ifContentScrolls"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/d_space_lg"
+        android:paddingTop="@dimen/d_space_xl"
+        android:paddingEnd="@dimen/d_space_lg"
+        android:paddingBottom="@dimen/d_space_2xl">
+
+        <TextView
+            style="@style/dText.Display"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EnuMan 内在观察" />
+
+        <TextView
+            style="@style/dText.Body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/d_space_sm"
+            android:text="只读、只在本机。这里看到的是内在活动，不是行动命令" />
+
+        <TextView
+            style="@style/dBadge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/d_space_md"
+            android:text="V0.3 · MIND KERNEL + LEDGER" />
+
+        <LinearLayout
+            style="@style/dCard"
+            android:layout_marginTop="@dimen/d_space_xl"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/dText.Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NOW / 当前内在" />
+
+            <TextView
+                android:id="@+id/enuman_state_summary"
+                style="@style/dText.Title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/d_space_md"
+                android:text="正在读取…" />
+
+            <TextView
+                android:id="@+id/enuman_counts"
+                style="@style/dText.Caption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/d_space_md"
+                android:text="脉冲 0 · 解释 0 · 未解 0 · 睡眠 0" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/dCard"
+            android:layout_marginTop="@dimen/d_space_md"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/dText.Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LEDGER / 经历账本" />
+
+            <TextView
+                android:id="@+id/enuman_experience_counts"
+                style="@style/dText.Caption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/d_space_md"
+                android:text="经历 0" />
+
+            <TextView
+                android:id="@+id/enuman_orphan_pulses"
+                style="@style/dText.Caption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/d_space_sm"
+                android:text="无经历来源脉冲 0" />
+
+            <TextView
+                android:id="@+id/enuman_protocol_status"
+                style="@style/dText.Caption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/d_space_sm"
+                android:text="Mind Context：未知" />
+        </LinearLayout>
+
+
+        <TextView
+            style="@style/dSectionTitle"
+            android:layout_marginTop="@dimen/d_space_xl"
+            android:text="六个基础驱力" />
+
+        <LinearLayout
+            style="@style/dCard"
+            android:orientation="vertical">
+
+            <TextView style="@style/dText.Label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="连接 CONNECTION" />
+            <TextView android:id="@+id/enuman_connection_value" style="@style/dText.Caption" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="end" android:text="0%" />
+            <ProgressBar android:id="@+id/enuman_connection_bar" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="6dp" android:max="125" android:progressTint="@color/d_accent" android:progressBackgroundTint="@color/d_line" />
+
+            <TextView style="@style/dText.Label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="@dimen/d_space_lg" android:text="好奇 CURIOSITY" />
+            <TextView android:id="@+id/enuman_curiosity_value" style="@style/dText.Caption" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="end" android:text="0%" />
+            <ProgressBar android:id="@+id/enuman_curiosity_bar" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="6dp" android:max="125" android:progressTint="@color/d_accent" android:progressBackgroundTint="@color/d_line" />
+
+            <TextView style="@style/dText.Label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="@dimen/d_space_lg" android:text="安全 SAFETY" />
+            <TextView android:id="@+id/enuman_safety_value" style="@style/dText.Caption" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="end" android:text="0%" />
+            <ProgressBar android:id="@+id/enuman_safety_bar" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="6dp" android:max="125" android:progressTint="@color/d_accent" android:progressBackgroundTint="@color/d_line" />
+
+            <TextView style="@style/dText.Label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="@dimen/d_space_lg" android:text="自主 AUTONOMY" />
+            <TextView android:id="@+id/enuman_autonomy_value" style="@style/dText.Caption" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="end" android:text="0%" />
+            <ProgressBar android:id="@+id/enuman_autonomy_bar" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="6dp" android:max="125" android:progressTint="@color/d_accent" android:progressBackgroundTint="@color/d_line" />
+
+            <TextView style="@style/dText.Label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="@dimen/d_space_lg" android:text="连贯 COHERENCE" />
+            <TextView android:id="@+id/enuman_coherence_value" style="@style/dText.Caption" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="end" android:text="0%" />
+            <ProgressBar android:id="@+id/enuman_coherence_bar" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="6dp" android:max="125" android:progressTint="@color/d_accent" android:progressBackgroundTint="@color/d_line" />
+
+            <TextView style="@style/dText.Label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="@dimen/d_space_lg" android:text="休息 REST" />
+            <TextView android:id="@+id/enuman_rest_value" style="@style/dText.Caption" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="end" android:text="0%" />
+            <ProgressBar android:id="@+id/enuman_rest_bar" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="6dp" android:max="125" android:progressTint="@color/d_accent" android:progressBackgroundTint="@color/d_line" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/dSectionTitle"
+            android:layout_marginTop="@dimen/d_space_xl"
+            android:text="最近形成的理解" />
+
+        <LinearLayout
+            style="@style/dCard"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/enuman_latest_meaning"
+                style="@style/dText.Title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="还没有形成语言" />
+
+            <TextView
+                style="@style/dText.Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/d_space_lg"
+                android:text="可能的具体愿望" />
+
+            <TextView
+                android:id="@+id/enuman_candidate_desires"
+                style="@style/dText.Body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/d_space_sm"
+                android:text="暂时没有" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/dSectionTitle"
+            android:layout_marginTop="@dimen/d_space_xl"
+            android:text="事件回放与校准" />
+
+        <LinearLayout
+            style="@style/dCard"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/dText.Body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="复制最近的事件，在隔离状态里重跑两次。它不会修改真实内在状态，也不会调用模型" />
+
+            <TextView
+                android:id="@+id/enuman_replay_report"
+                style="@style/dText.Caption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/d_space_md"
+                android:lineSpacingExtra="4dp"
+                android:text="尚未运行回放" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/d_space_lg"
+                android:gravity="end"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/enuman_refresh"
+                    style="@style/dButton.Ghost"
+                    android:minWidth="88dp"
+                    android:text="刷新" />
+
+                <TextView
+                    android:id="@+id/enuman_run_replay"
+                    style="@style/dButton.Primary"
+                    android:layout_marginStart="@dimen/d_space_sm"
+                    android:minWidth="132dp"
+                    android:text="运行隔离回放" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            style="@style/dSectionTitle"
+            android:layout_marginTop="@dimen/d_space_xl"
+            android:text="解释谱系" />
+
+        <TextView
+            android:id="@+id/enuman_lineage"
+            style="@style/dCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:lineSpacingExtra="4dp"
+            android:text="还没有解释谱系"
+            android:textColor="@color/d_ink_2"
+            android:textSize="13sp" />
+    </LinearLayout>
+</ScrollView>

@@ -6,6 +6,8 @@ This file is a practical inventory, not legal advice. Dependency metadata and th
 
 - AndroidX Core, AppCompat, WorkManager, and CardView — Apache License 2.0
 - OkHttp 4.12.0 — Apache License 2.0
+- Feishu/Lark Java OpenAPI SDK 2.7.3 — Apache License 2.0
+- ZXing Core 3.5.3 — Apache License 2.0
 - Vosk Android 0.3.75 — Apache License 2.0
 - JNA 5.18.1 — dual licensed LGPL-2.1-or-later or Apache License 2.0; this project elects Apache License 2.0 where permitted
 - Bouncy Castle `bcprov-jdk15on` 1.70 — Bouncy Castle License (MIT-style)

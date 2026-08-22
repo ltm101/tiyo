@@ -13,52 +13,62 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 /**
- * Uses the vision-capable provider configured by the user.
- * Credentials are read from [TiyoSecureStore] and are never bundled in the APK.
+ * 内置识图：不用用户填 key，开箱即用。
+ *
+ * 优先智谱 GLM-4.6V-Flash（免费，偶尔限流 1305），失败自动回退 Agnes 2.0-flash（免费）。
+ * 两个 key 都是项目内置的免费额度，不做任何配置 UI。
  */
 object BuiltinVision {
 
     private const val TAG = "BuiltinVision"
 
+    // 智谱（优先）
+    private const val GLM_URL = "https://open.bigmodel.cn/api/paas/v4/chat/completions"
+    private const val GLM_MODEL = "glm-4.6v-flash"
+    private val GLM_KEY: String
+        get() = BuildConfig.TIYO_GLM_API_KEY
+
+    // Agnes（兜底）
+    private const val AGNES_URL = "https://apihub.agnes-ai.com/v1/chat/completions"
+    private const val AGNES_MODEL = "agnes-2.0-flash"
+    private val AGNES_KEY: String
+        get() = BuildConfig.TIYO_AGNES_API_KEY
+
+    /** 从相册 URI 读取图片，压缩转 base64 后识别，返回中文描述 */
     fun recognizeUri(context: Context, uri: Uri): String {
-        val dataUrl = loadImageDataUrl(context, uri) ?: return "图片读取失败"
-        return recognize(context, dataUrl)
+        val dataUrl = loadImageDataUrl(context, uri)
+            ?: return "图片读取失败"
+        return recognize(dataUrl)
     }
 
-    /** Reads and compresses an image without writing it to disk. */
+    /** 读相册 URI → 压缩 → 纯 base64（不含 data: 前缀），供改图/生图用 */
     fun uriToBase64(context: Context, uri: Uri): String? {
         val dataUrl = loadImageDataUrl(context, uri) ?: return null
         return dataUrl.substringAfter("base64,")
     }
 
-    fun recognize(context: Context, dataUrl: String): String = recognize(
-        context,
-        dataUrl,
-        "请用中文简短描述这张图片的内容，两三句话即可，别太长"
-    )
-
-    fun recognize(context: Context, dataUrl: String, prompt: String): String {
-        val config = TiyoAgentConfig.load(context)
-        val key = TiyoAgentConfig.providerKey(context)
-        if (key.isBlank()) return "请先配置支持图片的模型和 API Key"
-
-        return runCatching {
-            callVision(
-                chatCompletionsUrl(config.baseUrl),
-                config.model,
-                key,
-                dataUrl,
-                prompt
-            )
-        }.onFailure { error ->
-            Log.w(TAG, "vision request failed: ${error.javaClass.simpleName}")
-        }.getOrNull().orEmpty().trim().ifBlank { "识别失败，请检查视觉模型配置" }
+    /** 识别 base64 图片：优先智谱，失败回退 Agnes */
+    fun recognize(dataUrl: String): String {
+        return recognize(dataUrl, "请用中文简短描述这张图片的内容，两三句话即可，别太长")
     }
 
-    internal fun chatCompletionsUrl(baseUrl: String): String {
-        val normalized = baseUrl.trim().trimEnd('/')
-        return if (normalized.endsWith("/chat/completions")) normalized
-        else "$normalized/chat/completions"
+    /** Backward-compatible entry used by the public chat UI. */
+    fun recognize(context: Context, dataUrl: String): String = recognize(dataUrl)
+
+    /** Backward-compatible custom vision task entry used by screen companion capture. */
+    fun recognize(context: Context, dataUrl: String, prompt: String): String = recognize(dataUrl, prompt)
+
+    /** 自定义视觉任务，供知情式单帧感知使用 */
+    fun recognize(dataUrl: String, prompt: String): String {
+        val glm = runCatching {
+            callVision(GLM_URL, GLM_MODEL, GLM_KEY, dataUrl, prompt)
+        }.getOrNull().orEmpty().trim()
+        if (glm.isNotBlank()) return glm
+        Log.w(TAG, "glm vision failed, fallback to agnes")
+        val agnes = runCatching {
+            callVision(AGNES_URL, AGNES_MODEL, AGNES_KEY, dataUrl, prompt)
+        }.getOrNull().orEmpty().trim()
+        return agnes.ifBlank { "识别失败，稍后再试" }
     }
 
     private fun callVision(
@@ -115,54 +125,49 @@ object BuiltinVision {
         }
     }
 
+    /** Bitmap → 最长边压缩 → JPEG data URL，不落盘 */
     fun bitmapToDataUrl(bitmap: Bitmap, maxDim: Int = 960, quality: Int = 72): String? {
         return try {
-            val width = bitmap.width
-            val height = bitmap.height
-            if (width <= 0 || height <= 0) return null
-            val scale = Math.min(1f, maxDim.toFloat() / Math.max(width, height))
+            val w = bitmap.width
+            val h = bitmap.height
+            if (w <= 0 || h <= 0) return null
+            val scale = Math.min(1f, maxDim.toFloat() / Math.max(w, h))
             val scaled = if (scale < 1f) {
                 Bitmap.createScaledBitmap(
                     bitmap,
-                    (width * scale).toInt().coerceAtLeast(1),
-                    (height * scale).toInt().coerceAtLeast(1),
+                    (w * scale).toInt().coerceAtLeast(1),
+                    (h * scale).toInt().coerceAtLeast(1),
                     true
                 )
             } else bitmap
-            val output = ByteArrayOutputStream()
-            scaled.compress(Bitmap.CompressFormat.JPEG, quality.coerceIn(50, 90), output)
+            val bos = ByteArrayOutputStream()
+            scaled.compress(Bitmap.CompressFormat.JPEG, quality.coerceIn(50, 90), bos)
             if (scaled !== bitmap) scaled.recycle()
-            "data:image/jpeg;base64," +
-                Base64.encodeToString(output.toByteArray(), Base64.NO_WRAP)
-        } catch (error: Exception) {
-            Log.w(TAG, "bitmap conversion failed: ${error.javaClass.simpleName}")
+            "data:image/jpeg;base64," + Base64.encodeToString(bos.toByteArray(), Base64.NO_WRAP)
+        } catch (e: Exception) {
+            Log.w(TAG, "bitmap conversion failed: ${e.javaClass.simpleName}")
             null
         }
     }
 
+    /** 读 URI → 最长边压到 1280 → JPEG q80 → data URL，避免图片过大上传超时 */
     private fun loadImageDataUrl(context: Context, uri: Uri): String? {
         return try {
-            val bitmap = context.contentResolver.openInputStream(uri)
+            val bmp = context.contentResolver.openInputStream(uri)
                 ?.use { BitmapFactory.decodeStream(it) } ?: return null
-            val maxDimension = 1280
-            val width = bitmap.width
-            val height = bitmap.height
-            val scale = Math.min(1f, maxDimension.toFloat() / Math.max(width, height))
+            val maxDim = 1280
+            val w = bmp.width
+            val h = bmp.height
+            val scale = Math.min(1f, maxDim.toFloat() / Math.max(w, h))
             val scaled = if (scale < 1f) {
-                Bitmap.createScaledBitmap(
-                    bitmap,
-                    (width * scale).toInt(),
-                    (height * scale).toInt(),
-                    true
-                )
-            } else bitmap
-            val output = ByteArrayOutputStream()
-            scaled.compress(Bitmap.CompressFormat.JPEG, 80, output)
-            if (scaled !== bitmap) scaled.recycle()
-            "data:image/jpeg;base64," +
-                Base64.encodeToString(output.toByteArray(), Base64.NO_WRAP)
-        } catch (error: Exception) {
-            Log.w(TAG, "load image failed", error)
+                Bitmap.createScaledBitmap(bmp, (w * scale).toInt(), (h * scale).toInt(), true)
+            } else bmp
+            val bos = ByteArrayOutputStream()
+            scaled.compress(Bitmap.CompressFormat.JPEG, 80, bos)
+            if (scaled !== bmp) scaled.recycle()
+            "data:image/jpeg;base64," + Base64.encodeToString(bos.toByteArray(), Base64.NO_WRAP)
+        } catch (e: Exception) {
+            Log.w(TAG, "load image failed", e)
             null
         }
     }

@@ -3,6 +3,7 @@ package com.koyo.screenwarden.events
 import android.content.Context
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
+import com.koyo.screenwarden.presence.PresenceRouter
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.TimeUnit
 
@@ -13,6 +14,7 @@ object EventBus {
 
     fun publish(context: Context, event: TiyoEvent) {
         val ctx = context.applicationContext
+        PresenceRouter.observeDecisionEvent(ctx, event)
         val episodes = BehaviorEpisodeStore.ingest(ctx, event)
         if (episodes.isEmpty()) return
         var queued = false

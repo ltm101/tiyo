@@ -1,6 +1,10 @@
 package com.koyo.screenwarden
 
 import android.app.Dialog
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
+import android.os.Handler
+import android.os.Looper
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -45,6 +49,10 @@ class TiyoAgentSettingsDialog(
         val imageGenBaseUrl = content.findViewById<EditText>(R.id.agent_image_gen_base_url)
         val imageGenModel = content.findViewById<EditText>(R.id.agent_image_gen_model)
         val permissions = content.findViewById<RadioGroup>(R.id.agent_permission_group)
+        val ownerPreset = content.findViewById<TextView>(R.id.agent_owner_preset)
+        val testConnection = content.findViewById<TextView>(R.id.agent_test_connection)
+        val discoverModels = content.findViewById<TextView>(R.id.agent_discover_models)
+        val connectionStatus = content.findViewById<TextView>(R.id.agent_connection_status)
 
         providerId.setText(TiyoAgentConfig.activeId(context))
         baseUrl.setText(current.baseUrl)
@@ -76,15 +84,36 @@ class TiyoAgentSettingsDialog(
             }
         )
 
-        // 快捷项只填服务地址和模型，密钥始终由用户自己提供
+        val hasOwnerPreset = BuildConfig.TIYO_PRESET_DEEPSEEK_KEY.isNotBlank() &&
+            BuildConfig.TIYO_PRESET_MINIMAX_KEY.isNotBlank() &&
+            BuildConfig.TIYO_PRESET_IMAGE_KEY.isNotBlank() &&
+            BuildConfig.TIYO_PRESET_IMAGE_BASE_URL.isNotBlank() &&
+            BuildConfig.TIYO_PRESET_IMAGE_MODEL.isNotBlank()
+        ownerPreset.visibility = if (hasOwnerPreset) View.VISIBLE else View.GONE
+        ownerPreset.setOnClickListener {
+            providerId.setText(TiyoAgentConfig.PROVIDER_ID)
+            baseUrl.setText(BuildConfig.TIYO_PRESET_DEEPSEEK_BASE_URL)
+            model.setText(BuildConfig.TIYO_PRESET_DEEPSEEK_MODEL)
+            apiKey.setText(BuildConfig.TIYO_PRESET_DEEPSEEK_KEY)
+            minimaxKey.setText(BuildConfig.TIYO_PRESET_MINIMAX_KEY)
+            imageGenProvider.check(R.id.agent_img_gpt)
+            imageGenKey.setText(BuildConfig.TIYO_PRESET_IMAGE_KEY)
+            imageGenBaseUrl.setText(BuildConfig.TIYO_PRESET_IMAGE_BASE_URL)
+            imageGenModel.setText(BuildConfig.TIYO_PRESET_IMAGE_MODEL)
+            Toast.makeText(content.context, "模型、语音和生图配置已填好，点保存生效", Toast.LENGTH_SHORT).show()
+        }
+        // 内置识图模型：配置从未纳入源码的 BuildConfig 本地私密字段读取
         content.findViewById<View>(R.id.agent_vision_preset).setOnClickListener {
             baseUrl.setText("https://apihub.agnes-ai.com/v1")
             model.setText("agnes-2.0-flash")
-            Toast.makeText(
-                content.context,
-                "已填入 Agnes 识图模型，请填写自己的 API Key",
-                Toast.LENGTH_SHORT
-            ).show()
+            if (BuildConfig.TIYO_AGNES_API_KEY.isNotBlank()) {
+                apiKey.setText(BuildConfig.TIYO_AGNES_API_KEY)
+                Toast.makeText(content.context, "已填入 Agnes 模型配置，保存即可", Toast.LENGTH_SHORT).show()
+            } else {
+                apiKey.text.clear()
+                apiKey.hint = "请输入 Agnes API Key，将安全保存在本机"
+                Toast.makeText(content.context, "Agnes 模型已选择，请填写 API Key", Toast.LENGTH_SHORT).show()
+            }
         }
 
         fun renderProviderList() {
@@ -99,7 +128,7 @@ class TiyoAgentSettingsDialog(
                         append("  ·  ")
                         append(p.model)
                     }
-                    setTextColor(Color.parseColor(if (p.id == activeId) "#E8894A" else "#55514B"))
+                    setTextColor(ContextCompat.getColor(context, if (p.id == activeId) R.color.d_accent_deep else R.color.d_ink_2))
                     textSize = 13f
                     setPadding(0, 12, 0, 12)
                     setOnClickListener {
@@ -115,6 +144,46 @@ class TiyoAgentSettingsDialog(
             }
         }
         renderProviderList()
+
+        fun runProviderProbe(showModels: Boolean) {
+            val base = baseUrl.text.toString().trim()
+            val key = apiKey.text.toString().trim().ifBlank { TiyoAgentConfig.providerKey(context) }
+            if (base.isBlank()) {
+                baseUrl.error = "需要 API 地址"
+                return
+            }
+            if (key.isBlank()) {
+                apiKey.error = "需要 API Key"
+                return
+            }
+            testConnection.isEnabled = false
+            discoverModels.isEnabled = false
+            connectionStatus.text = if (showModels) "正在发现模型…" else "正在测试连接…"
+            Thread {
+                val result = ProviderConnectionProbe.discover(base, key)
+                Handler(Looper.getMainLooper()).post {
+                    testConnection.isEnabled = true
+                    discoverModels.isEnabled = true
+                    connectionStatus.text = if (result.latencyMs > 0) {
+                        "${result.message} · ${result.latencyMs}ms"
+                    } else {
+                        result.message
+                    }
+                    if (showModels && result.models.isNotEmpty()) {
+                        AlertDialog.Builder(context)
+                            .setTitle("选择模型")
+                            .setItems(result.models.toTypedArray()) { _, index ->
+                                model.setText(result.models[index])
+                            }
+                            .setNegativeButton("取消", null)
+                            .show()
+                    }
+                }
+            }.apply { name = "tiyo-provider-probe" }.start()
+        }
+
+        testConnection.setOnClickListener { runProviderProbe(showModels = false) }
+        discoverModels.setOnClickListener { runProviderProbe(showModels = true) }
 
         content.findViewById<TextView>(R.id.agent_settings_cancel)
             .setOnClickListener { dialog.dismiss() }

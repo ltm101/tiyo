@@ -1005,8 +1005,8 @@ impl CoreTools {
         } else if is_glm {
             "https://open.bigmodel.cn/api/paas/v4/images/generations".to_string()
         } else if is_openai {
-    // gpt-image 支持用户自定义 base_url，默认使用 OpenAI 官方地址。
-    // OpenAI gpt-image 系列走 /v1/images/edits，base 可能带 /v1 也可能不带，智能拼接。
+            // gpt-image 支持自定义 base_url（如 4sapi.cn 中转），默认 OpenAI 官方。
+            // OpenAI gpt-image 系列走 /v1/images/edits（4sapi 等中转同理），base 可能带 /v1 也可能不带，智能拼接。
             let base = std::env::var("TIYO_IMAGE_GEN_BASE_URL")
                 .unwrap_or_else(|_| "https://api.openai.com/v1".to_string())
                 .trim_end_matches('/')
@@ -1059,7 +1059,7 @@ impl CoreTools {
             request = request.header("Authorization", format!("Bearer {api_key}"));
         }
         if is_openai {
-    // 某些兼容端点强制要求 image 字段；纯文字生图传 1x1 透明 PNG 占位
+            // 4sapi 等中转的 edits 端点强制要求 image 字段；纯文字生图传 1x1 透明 PNG 占位
             let blank_png = BASE64_STANDARD
                 .decode("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==")
                 .unwrap_or_default();

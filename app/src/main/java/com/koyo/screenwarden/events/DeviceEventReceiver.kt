@@ -6,6 +6,7 @@ import android.content.Intent
 import com.koyo.screenwarden.CommandCheckWorker
 import com.koyo.screenwarden.RealtimeStateWorker
 import com.koyo.screenwarden.UsageReportWorker
+import com.koyo.screenwarden.presence.TiyoPresenceService
 
 /** 进程外也能收到的电源和开机事件。 */
 class DeviceEventReceiver : BroadcastReceiver() {
@@ -23,6 +24,7 @@ class DeviceEventReceiver : BroadcastReceiver() {
                 UsageReportWorker.schedule(context)
                 CommandCheckWorker.schedule(context)
                 RealtimeStateWorker.schedule(context)
+                TiyoPresenceService.refresh(context)
                 EventBus.publish(context, TiyoEvent(TiyoEventType.TIME_ANCHOR, "设备开机后的兜底心跳"))
             }
         }
